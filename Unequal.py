@@ -73,7 +73,8 @@ def initial_grid(m):
     return grid
 
 
-board = initial_grid(4)
+board = initial_grid(6)
+
 print(board)
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
@@ -83,7 +84,7 @@ the clues if possible or otherwise be empty
 """
 
 
-def display_board(board):
+def display_board(board,color='cyan'):
     """
     :param board: current board configuration
     :return: displays the board
@@ -141,12 +142,19 @@ def display_board(board):
 
     clue.append('NA')
 
+    game_state = ''
+
     for i,j in zip(game,clue):
         if j != 'NA':
-            print(i)
-            print(j)
+            game_state += i
+            game_state += '\n'
+            game_state += j
+            game_state += '\n'
         else:
-            print(i)
+            game_state += i
+            game_state += '\n'
+
+    print(colored(game_state,color,attrs=['bold']))
 
 
 
