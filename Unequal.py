@@ -59,7 +59,7 @@ def initial_grid(m):
 
 
 board = initial_grid(4)
-
+print(board)
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
 rows and columns would represent the actual grid while the the intermediate rows and columns will store 
@@ -74,17 +74,26 @@ def display_board(board):
     :return: displays the board
     """
     s = ''
-    for num in range(board.shape[0]):
-        arr = board[num,:]
-        for idx in range(len(arr)):
-            if idx % 2 == 0:
-                s += arr[idx] + '|'
-            else:
+    for num in range(0,board.shape[0]):
+        arr = board[num, :]
+        if num % 2 == 0:
+            for idx in range(len(arr)):
+                if idx % 2 == 0:
+                    s += arr[idx] + '|'
+                else:
+                    if arr[idx] == 'E':
+                        s += ' |'
+                    else:
+                        s += arr[idx] + '|'
+        else:
+            for idx in range(len(arr)):
                 if arr[idx] == 'E':
                     s += ' |'
                 else:
                     s += arr[idx] + '|'
         s += '\n'
+
+
     print(s)
 
 
