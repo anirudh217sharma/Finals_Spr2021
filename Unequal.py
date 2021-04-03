@@ -13,12 +13,14 @@ from numpy.core._multiarray_umath import ndarray
 import random
 from termcolor import colored
 
-
 """
 The grid can be represented as (m + (m-1) , m + (m-1)) for the empty rows and columns having the inequalities 
 where necessary otherwise empty.
 
 """
+
+rows = ['<', '>']
+cols = ['@', "#"]
 
 
 def initial_grid(m):
@@ -36,24 +38,37 @@ def initial_grid(m):
     # '#' means that the lower digit is greater
     # 'x' in the final grid signifies that the cell is useless without clues
 
-    rows = ['<', '>']
-    cols = ['@', "#"]
-
     for i in range(1, size, 2):
 
         arr1 = grid[i, :]  # row
 
-        arr2 = grid[:, i]  # column
+        arr2 = grid[:, i - 1]  # column
 
         _ = list(range(1, size, 2))
 
-        arr1[random.choice(_)] = random.choice(rows)
+        if 4 <= size < 6:
 
-        arr2[random.choice(_)] = random.choice(cols)
+            arr1[random.choice(_)] = random.choice(rows)
+
+            arr2[random.choice(_)] = random.choice(cols)
+        elif 6 <= size <= 7:
+            arr1[random.choice(_)] = random.choice(rows)
+            arr1[random.choice(_)] = random.choice(rows)
+
+            arr2[random.choice(_)] = random.choice(cols)
+            arr2[random.choice(_)] = random.choice(cols)
+        elif size >= 8:
+            arr1[random.choice(_)] = random.choice(rows)
+            arr1[random.choice(_)] = random.choice(rows)
+            arr1[random.choice(_)] = random.choice(rows)
+
+            arr2[random.choice(_)] = random.choice(cols)
+            arr2[random.choice(_)] = random.choice(cols)
+            arr2[random.choice(_)] = random.choice(cols)
 
         grid[i, :] = arr1
 
-        grid[:, i] = arr2
+        grid[:, i - 1] = arr2
 
     return grid
 
@@ -67,14 +82,14 @@ the clues if possible or otherwise be empty
 
 """
 
+
 def display_board(board):
     """
-
     :param board: current board configuration
     :return: displays the board
     """
     s = ''
-    for num in range(0,board.shape[0]):
+    for num in range(0, board.shape[0]):
         arr = board[num, :]
         if num % 2 == 0:
             for idx in range(len(arr)):
@@ -93,9 +108,53 @@ def display_board(board):
                     s += arr[idx] + '|'
         s += '\n'
 
+        line_iterator = s.splitlines()
 
-    print(s)
+    game = []
+
+
+    for idx in range(0,len(line_iterator)-1,2):
+        end = line_iterator[idx]
+        char = ''
+        for i,j in zip(line_iterator[idx],line_iterator[idx+1]):
+            if i == 'E':
+                char += i
+            elif i == '|':
+                char += i
+            else:
+                if j == '<' or j == '>':
+                    char += j
+                else:
+                    char += i
+        game.append(char)
+    game.append(end)
+
+    clue = []
+
+    for idx in range(1,len(line_iterator),2):
+        clue.append(line_iterator[idx])
+
+    for i,num in enumerate(clue):
+        num = num.replace('<',' ')
+        num = num.replace('>',' ')
+        clue[i] = num
+
+    clue.append('NA')
+
+    for i,j in zip(game,clue):
+        if j != 'NA':
+            print(i)
+            print(j)
+        else:
+            print(i)
+
+
+
+
+
+
+
+
 
 
 display_board(board)
-
