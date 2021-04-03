@@ -38,7 +38,7 @@ def initial_grid(m):
     cols = ['@', "#"]
 
     for i in range(1, size, 2):
-        print(i)
+
         arr1 = grid[i, :]  # row
 
         arr2 = grid[:, i]  # column
@@ -46,17 +46,12 @@ def initial_grid(m):
         _ = list(range(1, size, 2))
 
         arr1[random.choice(_)] = random.choice(rows)
+
         arr2[random.choice(_)] = random.choice(cols)
 
         grid[i, :] = arr1
-        grid[i, :] = np.where(grid[i, :] == 'E', 'X', grid[i, :])
-        grid[i, :][0] = 'E'
-        grid[i, :][-1] = 'E'
 
         grid[:, i] = arr2
-        grid[:, i] = np.where(grid[:, i] == 'E', 'X', grid[:, i])
-        grid[:, i][0] = 'E'
-        grid[:, i][-1] = 'E'
 
     print(grid)
 
@@ -64,3 +59,10 @@ def initial_grid(m):
 
 
 initial_grid(4)
+
+"""
+So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
+rows and columns would represent the actual grid while the the intermediate rows and columns will store 
+the clues if possible or otherwise be empty 
+
+"""
