@@ -11,6 +11,8 @@ As a result now there is not restriction to work on a 4 * 4 grid so the implemen
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
 import random
+from termcolor import colored
+
 
 """
 The grid can be represented as (m + (m-1) , m + (m-1)) for the empty rows and columns having the inequalities 
@@ -53,12 +55,10 @@ def initial_grid(m):
 
         grid[:, i] = arr2
 
-    print(grid)
-
     return grid
 
 
-initial_grid(4)
+board = initial_grid(4)
 
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
@@ -66,3 +66,27 @@ rows and columns would represent the actual grid while the the intermediate rows
 the clues if possible or otherwise be empty 
 
 """
+
+def display_board(board):
+    """
+
+    :param board: current board configuration
+    :return: displays the board
+    """
+    s = ''
+    for num in range(board.shape[0]):
+        arr = board[num,:]
+        for idx in range(len(arr)):
+            if idx % 2 == 0:
+                s += arr[idx] + '|'
+            else:
+                if arr[idx] == 'E':
+                    s += ' |'
+                else:
+                    s += arr[idx] + '|'
+        s += '\n'
+    print(s)
+
+
+display_board(board)
+
