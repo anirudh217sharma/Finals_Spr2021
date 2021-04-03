@@ -73,9 +73,10 @@ def initial_grid(m):
     return grid
 
 
-board = initial_grid(6)
+board = initial_grid(4)
 
 print(board)
+print('------------------------')
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
 rows and columns would represent the actual grid while the the intermediate rows and columns will store 
@@ -84,7 +85,7 @@ the clues if possible or otherwise be empty
 """
 
 
-def display_board(board,color='cyan'):
+def display_board(board, color='cyan'):
     """
     :param board: current board configuration
     :return: displays the board
@@ -113,11 +114,10 @@ def display_board(board,color='cyan'):
 
     game = []
 
-
-    for idx in range(0,len(line_iterator)-1,2):
+    for idx in range(0, len(line_iterator) - 1, 2):
         end = line_iterator[idx]
         char = ''
-        for i,j in zip(line_iterator[idx],line_iterator[idx+1]):
+        for i, j in zip(line_iterator[idx], line_iterator[idx + 1]):
             if i == 'E':
                 char += i
             elif i == '|':
@@ -132,19 +132,19 @@ def display_board(board,color='cyan'):
 
     clue = []
 
-    for idx in range(1,len(line_iterator),2):
+    for idx in range(1, len(line_iterator), 2):
         clue.append(line_iterator[idx])
 
-    for i,num in enumerate(clue):
-        num = num.replace('<',' ')
-        num = num.replace('>',' ')
+    for i, num in enumerate(clue):
+        num = num.replace('<', ' ')
+        num = num.replace('>', ' ')
         clue[i] = num
 
     clue.append('NA')
 
     game_state = ''
 
-    for i,j in zip(game,clue):
+    for i, j in zip(game, clue):
         if j != 'NA':
             game_state += i
             game_state += '\n'
@@ -154,15 +154,12 @@ def display_board(board,color='cyan'):
             game_state += i
             game_state += '\n'
 
-    print(colored(game_state,color,attrs=['bold']))
-
-
-
-
-
-
-
-
+    print(colored(game_state, color, attrs=['bold']))
 
 
 display_board(board)
+
+# When the board is displayed inequality clues are represented and empty spaces are represented as 'E' , these
+# will be replaced by digits during the solution
+
+# To do : add one or two random number somewhere in the puzzle by replacing one of the valid spaces
