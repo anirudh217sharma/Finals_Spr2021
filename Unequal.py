@@ -19,6 +19,8 @@ where necessary otherwise empty.
 
 """
 
+# https://www.vertex42.com/ExcelTips/unicode-symbols.html LINK TO FIND THE SYMBOLS
+
 rows = ['<', '>']
 cols = ['@', "#"]
 
@@ -85,7 +87,7 @@ the clues if possible or otherwise be empty
 """
 
 
-def display_board(board, color='cyan'):
+def display_board(board, color='red'):
     """
     :param board: current board configuration
     :return: displays the board
