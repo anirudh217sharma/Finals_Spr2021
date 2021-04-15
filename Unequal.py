@@ -21,8 +21,17 @@ where necessary otherwise empty.
 
 # https://www.vertex42.com/ExcelTips/unicode-symbols.html LINK TO FIND THE SYMBOLS
 
+sign1 = '\u2227'
+sign2 = '\u2228'
+
 rows = ['<', '>']
-cols = ['@', "#"]
+cols = [sign1, sign2]
+
+
+# inverted greater than and less than unicode representation
+# cell above is less than cell below : \u2227
+# cell below is greater than cell above : \u2228
+
 
 
 def initial_grid(m):
