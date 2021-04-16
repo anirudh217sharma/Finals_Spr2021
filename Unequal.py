@@ -33,7 +33,6 @@ cols = [sign1, sign2]
 # cell below is greater than cell above : \u2228
 
 
-
 def initial_grid(m):
     """
 
@@ -57,18 +56,18 @@ def initial_grid(m):
 
         _ = list(range(1, size, 2))
 
-        if 4 <= size < 6:
+        if 4 <= m < 6:
 
             arr1[random.choice(_)] = random.choice(rows)
 
             arr2[random.choice(_)] = random.choice(cols)
-        elif 6 <= size <= 7:
+        elif 6 <= m <= 7:
             arr1[random.choice(_)] = random.choice(rows)
             arr1[random.choice(_)] = random.choice(rows)
 
             arr2[random.choice(_)] = random.choice(cols)
             arr2[random.choice(_)] = random.choice(cols)
-        elif size >= 8:
+        elif m >= 8:
             arr1[random.choice(_)] = random.choice(rows)
             arr1[random.choice(_)] = random.choice(rows)
             arr1[random.choice(_)] = random.choice(rows)
@@ -84,10 +83,10 @@ def initial_grid(m):
     return grid
 
 
-board = initial_grid(4)
+board = initial_grid(6)
 
 print(board)
-print('------------------------')
+
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
 rows and columns would represent the actual grid while the the intermediate rows and columns will store 
@@ -95,8 +94,12 @@ the clues if possible or otherwise be empty
 
 """
 
+"""
+DISPLAY BOARD FUNCTION IS JUST FOR PRINTING INTO THE CONSOLE : DEBUGGING PURPOSES
+"""
 
-def display_board(board, color='red'):
+
+def display_board(board, color='cyan'):
     """
     :param board: current board configuration
     :return: displays the board

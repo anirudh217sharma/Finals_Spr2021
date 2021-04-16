@@ -12,7 +12,7 @@ pygame.init()
 # Dimensions of the gameplay screen
 height = 800
 width = 800
-Line_width = 15
+Line_width = 10
 
 """
 NOTE : PYGAME COORDINATE SYSTEM IS SET UP IN A WAY LIKE FOLLOWS :
@@ -33,7 +33,7 @@ screen.fill(Background)
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
-m = 6
+m = 4
 grid = initial_grid(m)
 
 
