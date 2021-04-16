@@ -33,21 +33,44 @@ screen.fill(Background)
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
+m = 6
+grid = initial_grid(m)
 
 
-def draw_lines(height ,width):
+def draw_lines(m):
     """
 
-    :param height: height of the grid
-    :param width: width of the grid
+    :param m : size of the square grid
     :return:
     """
     # horizontal line
-    pass
+
+    game_size = 2 * m - 1
+
+    top_left = (0, 200)
+    top_right = (800, 200)
+
+    bottom_left = (0, 800)
+    bottom_right = (800, 800)
+
+    horizontal_length = 800
+    vertical_length = 600
 
 
-# draw_lines()
+    # drawing horizontal lines
+    counter = 0
+    for num in range(game_size):
+        pygame.draw.line(screen, Line_color, (0, 200 + counter), (800, 200 + counter), Line_width)
+        counter += vertical_length / game_size
 
+    # drawing vertical lines
+    counter = 0
+    for num in range(game_size):
+        pygame.draw.line(screen, Line_color, (game_size + counter, 200), (game_size + counter, 800), Line_width)
+        counter += horizontal_length / game_size
+
+
+draw_lines(m)
 
 # main loop , this is always necessary in Pygame
 
