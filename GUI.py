@@ -31,14 +31,14 @@ NOTE : PYGAME COORDINATE SYSTEM IS SET UP IN A WAY LIKE FOLLOWS :
 """
 
 # COLORS FOR THE SCREEN
-LIGHTPURPLE= (153, 0, 153)
+LIGHTPURPLE = (153, 0, 153)
 Red = (255, 0, 0)
 Background = (28, 170, 156)
 Line_color = (23, 145, 135)
 SHADOW = (192, 192, 192)
-LIGHTBLUE= (0, 0, 255)
-LIGHTGREEN = (0, 255, 0 )
-YELLOW = (100,100,0)
+LIGHTBLUE = (0, 0, 255)
+LIGHTGREEN = (0, 255, 0)
+YELLOW = (100, 100, 0)
 
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
@@ -89,7 +89,7 @@ def draw_grid(m):
     for row, num in enumerate(list(range(5, 800, int(horizontal_cell_size)))):
         for col, idx in enumerate(list(range(205, 800, int(vertical_cell_size)))):
             try:
-                pygame.draw.rect(screen, (255,255,255),
+                pygame.draw.rect(screen, (255, 255, 255),
                                  pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
                 text = grid[col, row]
                 if text == '>' or text == '<' or text == sign1 or text == sign2:
@@ -98,11 +98,16 @@ def draw_grid(m):
 
                 if text != 'E':
                     text_surface = base_font.render(text, True, (0, 0, 0))
-                    screen.blit(text_surface, (num + int(horizontal_cell_size /3), idx + int(vertical_cell_size / 3)))
+                    if m <=5:
+                        screen.blit(text_surface, (num + int(horizontal_cell_size / 3), idx + int(vertical_cell_size / 3)))
+                    else:
+                        screen.blit(text_surface,
+                                    (num + int(horizontal_cell_size / 5), idx + int(vertical_cell_size / 5)))
 
 
                 else:
-                    pygame.draw.rect(screen, SHADOW, pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
+                    pygame.draw.rect(screen, SHADOW,
+                                     pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
 
 
             except IndexError:
@@ -111,9 +116,10 @@ def draw_grid(m):
     # Working on the providing users an option to display the text in the grid , also includes connecting the
     # numpy game board with the screen
 
+
 # red circles means that these are invalid boxes and have no significance whatsoever
 
-draw_grid(m=6)
+draw_grid(m=7)
 
 # main loop , this is always necessary in Pygame
 
