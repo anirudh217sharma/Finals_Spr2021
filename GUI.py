@@ -87,11 +87,13 @@ def draw_grid(m):
                 text_surface = base_font.render(text, True, (0, 0, 0))
                 screen.blit(text_surface, (num + int(horizontal_cell_size / 2), idx + int(vertical_cell_size / 2)))
             else:
-                pass
+                pygame.draw.circle(screen, Red,(num + int(horizontal_cell_size / 2), idx + int(vertical_cell_size / 2)),radius=15, width=5)
+
     print(grid)
     # Working on the providing users an option to display the text in the grid , also includes connecting the
     # numpy game board with the screen
 
+# red circles means that these are invalid boxes and have no significance whatsoever
 
 draw_grid(m=4)
 
