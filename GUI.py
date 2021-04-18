@@ -1,3 +1,5 @@
+from typing import Any, Union
+
 import pygame, sys
 import time
 
@@ -35,11 +37,11 @@ level = ['easy', 'medium', 'hard']
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
-m = 5
+m = 4
 grid = initial_grid(m,level)
+game_size = 2 * m - 1
 
-
-def draw_lines(m):
+def draw_grid(m):
     """
 
     :param m : size of the square grid
@@ -47,7 +49,7 @@ def draw_lines(m):
     """
     # horizontal line
 
-    game_size = 2 * m - 1
+    game_size: Union[int, Any] = 2 * m - 1
 
     top_left = (0, 200)
     top_right = (800, 200)
@@ -58,21 +60,17 @@ def draw_lines(m):
     horizontal_length = 800
     vertical_length = 600
 
+    # representing the grid in rectangles (which are squares)
 
-    # drawing horizontal lines
-    counter = 0
-    for num in range(game_size):
-        pygame.draw.line(screen, Line_color, (0, 200 + counter), (800, 200 + counter), Line_width)
-        counter += vertical_length / game_size
+    vertical_cell_size = vertical_length / game_size
+    horizontal_cell_size = horizontal_length / game_size
 
-    # drawing vertical lines
-    counter = 0
-    for num in range(game_size):
-        pygame.draw.line(screen, Line_color, (game_size + counter, 200), (game_size + counter, 800), Line_width)
-        counter += horizontal_length / game_size
+    for num in range(5, 800, int(horizontal_cell_size)):
+        for idx in range(205, 800, int(vertical_cell_size)):
+            pygame.draw.rect(screen, Line_color, pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)),width=5)
 
 
-draw_lines(m)
+draw_grid(m)
 
 # main loop , this is always necessary in Pygame
 
@@ -80,5 +78,11 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_X = event.pos[0]
+            mouse_Y = event.pos[1]
+
+
 
     pygame.display.update()
