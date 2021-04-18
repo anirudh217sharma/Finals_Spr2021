@@ -1,5 +1,7 @@
 # TODO : Better color combination for the UI
 
+# TODO : The draw grid function breaks for m > 4 , fix it
+
 
 from typing import Any, Union
 
