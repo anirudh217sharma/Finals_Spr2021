@@ -3,8 +3,6 @@ import time
 
 from Unequal import *
 
-grid = initial_grid(4)
-
 # pygame initialization
 
 pygame.init()
@@ -30,11 +28,15 @@ screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
 screen.fill(Background)
 
+# This is the difficulty level for the puzzle
+
+level = ['easy', 'medium', 'hard']
+
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
 m = 5
-grid = initial_grid(m)
+grid = initial_grid(m,level)
 
 
 def draw_lines(m):
