@@ -1,3 +1,5 @@
+# TODO : Better color combination for the UI
+
 from typing import Any, Union
 
 import pygame, sys
@@ -13,6 +15,9 @@ pygame.init()
 height = 800
 width = 800
 Line_width = 10
+
+from pygame.rect import Rect
+from pygame_gui.elements.ui_text_entry_line import UITextEntryLine
 
 """
 NOTE : PYGAME COORDINATE SYSTEM IS SET UP IN A WAY LIKE FOLLOWS :
@@ -38,7 +43,7 @@ level = ['easy', 'medium', 'hard']
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
 m = 4
-grid = initial_grid(m,level)
+
 game_size = 2 * m - 1
 
 def draw_grid(m):
@@ -50,6 +55,8 @@ def draw_grid(m):
     # horizontal line
 
     game_size: Union[int, Any] = 2 * m - 1
+
+    grid = initial_grid(m, level='easy')
 
     top_left = (0, 200)
     top_right = (800, 200)
@@ -65,12 +72,25 @@ def draw_grid(m):
     vertical_cell_size = vertical_length / game_size
     horizontal_cell_size = horizontal_length / game_size
 
-    for num in range(5, 800, int(horizontal_cell_size)):
-        for idx in range(205, 800, int(vertical_cell_size)):
-            pygame.draw.rect(screen, Line_color, pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)),width=5)
+    # text objects
+
+    base_font = pygame.font.Font(None, 32)
+
+    for row, num in enumerate(list(range(5, 800, int(horizontal_cell_size)))):
+        for col, idx in enumerate(list(range(205, 800, int(vertical_cell_size)))):
+            pygame.draw.rect(screen, Line_color,
+                             pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
+            text = grid[col, row]
+            text_surface = base_font.render(text,True,Red)
+            screen.blit(text_surface, (num+int(horizontal_cell_size/2),idx + int(vertical_cell_size/2)))
+            
+    print(grid)
+    # Working on the providing users an option to display the text in the grid , also includes connecting the
+    # numpy game board with the screen
 
 
 draw_grid(m)
+
 
 # main loop , this is always necessary in Pygame
 
@@ -82,7 +102,5 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_X = event.pos[0]
             mouse_Y = event.pos[1]
-
-
 
     pygame.display.update()
