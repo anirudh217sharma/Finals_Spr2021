@@ -1,4 +1,5 @@
 # TODO : Better color combination for the UI
+# TODO : GUI breaks for m > 5 fix that
 
 
 sign1 = '\u2227'
@@ -107,13 +108,12 @@ def draw_grid(m):
             except IndexError:
                 break
 
-    print(grid)
     # Working on the providing users an option to display the text in the grid , also includes connecting the
     # numpy game board with the screen
 
 # red circles means that these are invalid boxes and have no significance whatsoever
 
-draw_grid(m=4)
+draw_grid(m=6)
 
 # main loop , this is always necessary in Pygame
 
