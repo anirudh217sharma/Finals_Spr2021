@@ -1,5 +1,6 @@
 # TODO : Better color combination for the UI
 
+
 from typing import Any, Union
 
 import pygame, sys
@@ -74,7 +75,7 @@ def draw_grid(m):
 
     # text objects
 
-    base_font = pygame.font.Font(None, 32)
+    base_font = pygame.font.Font("seguisym.ttf", 32)
 
     for row, num in enumerate(list(range(5, 800, int(horizontal_cell_size)))):
         for col, idx in enumerate(list(range(205, 800, int(vertical_cell_size)))):

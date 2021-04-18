@@ -144,7 +144,6 @@ def initial_grid(m, level):
 
 board = initial_grid(6, level='medium')
 
-print(board)
 
 """
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
