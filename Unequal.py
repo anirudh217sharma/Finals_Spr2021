@@ -71,6 +71,8 @@ def initial_grid(m, level):
     # '#' means that the lower digit is greater
     # 'x' in the final grid signifies that the cell is useless without clues
 
+    row_iterator = list(range(1,m,2))
+
     for i in range(1, size, 2):
 
         arr1 = grid[i, :]  # row
@@ -139,10 +141,21 @@ def initial_grid(m, level):
             choice = random.choice(indices)
             grid[choice] = str(num)
 
+    # verifying the inequalities less than greater than
+
+    for num in range(1,size,2):
+        row = grid[num,:]
+        for i, item in enumerate(row):
+            if item == '<' or item == '>':
+                grid[num,i] = 'E'
+                grid[num-1,i] = item
+
     return grid
 
 
-board = initial_grid(6, level='medium')
+board = initial_grid(4, level='medium')
+print(board)
+# Sometimes the unequalities are not set up correctly
 
 
 """

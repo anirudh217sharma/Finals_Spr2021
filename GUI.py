@@ -47,6 +47,7 @@ m = 4
 
 game_size = 2 * m - 1
 
+
 def draw_grid(m):
     """
 
@@ -82,16 +83,17 @@ def draw_grid(m):
             pygame.draw.rect(screen, Line_color,
                              pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
             text = grid[col, row]
-            text_surface = base_font.render(text,True,Red)
-            screen.blit(text_surface, (num+int(horizontal_cell_size/2),idx + int(vertical_cell_size/2)))
-            
+            if text != 'E':
+                text_surface = base_font.render(text, True, (0, 0, 0))
+                screen.blit(text_surface, (num + int(horizontal_cell_size / 2), idx + int(vertical_cell_size / 2)))
+            else:
+                pass
     print(grid)
     # Working on the providing users an option to display the text in the grid , also includes connecting the
     # numpy game board with the screen
 
 
-draw_grid(m)
-
+draw_grid(m=4)
 
 # main loop , this is always necessary in Pygame
 
