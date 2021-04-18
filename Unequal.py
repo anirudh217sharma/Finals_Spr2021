@@ -27,7 +27,6 @@ sign2 = '\u2228'
 rows = ['<', '>']
 cols = [sign1, sign2]
 
-
 # inverted greater than and less than unicode representation
 # cell above is less than cell below : \u2227
 # cell below is greater than cell above : \u2228
@@ -35,6 +34,7 @@ cols = [sign1, sign2]
 # This is the difficulty level for the puzzle
 
 level = ['easy', 'medium', 'hard']
+
 
 def space_check(grid):
     """
@@ -54,7 +54,8 @@ def possible_choice(grid):
     move = np.where(grid == ' ')
     return list(zip(*move))
 
-def initial_grid(m,level):
+
+def initial_grid(m, level):
     """
 
     :param m: size of the grid : e.g 4 * 4
@@ -122,25 +123,26 @@ def initial_grid(m,level):
 
     indices = possible_choice(grid)  # list of position of the actual baord
 
-    if 4 <= m < 6:
-        if level == 'hard':
-            pass
-        elif level == 'medium':
-            for num in range(3):
-                choice = random.choice(indices)
-                grid[choice] = str(num)
-                indices.remove(choice)
-        else:
-            for num in number:
-                choice = random.choice(indices)
-                grid[choice] = str(num)
-                indices.remove(choice)
-
+    if level == 'hard':
+        pass
+    elif level == 'medium':
+        random.shuffle(number)
+        idx = len(number)
+        for _, num in enumerate(number):
+            choice = random.choice(indices)
+            num = random.choice(number)
+            grid[choice] = str(num)
+            if _ >= idx / 3:
+                break
+    else:
+        for _, num in enumerate(number):
+            choice = random.choice(indices)
+            grid[choice] = str(num)
 
     return grid
 
 
-board = initial_grid(4,level='easy')
+board = initial_grid(6, level='medium')
 
 print(board)
 
@@ -226,16 +228,9 @@ def display_board(board, color='cyan'):
             game_state += '\n'
 
     print(colored(game_state, color, attrs=['bold']))
-
-
-display_board(board)
-
+# display_board(board)
 
 # When the board is displayed inequality clues are represented and empty spaces are represented as 'E' , these
 # will be replaced by digits during the solution
 
 # TO DO : add one or two random number somewhere in the puzzle by replacing one of the valid spaces
-
-
-
-
