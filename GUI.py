@@ -33,7 +33,7 @@ screen.fill(Background)
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
-m = 4
+m = 5
 grid = initial_grid(m)
 
 
@@ -78,4 +78,5 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
     pygame.display.update()

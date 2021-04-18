@@ -32,11 +32,33 @@ cols = [sign1, sign2]
 # cell above is less than cell below : \u2227
 # cell below is greater than cell above : \u2228
 
+# This is the difficulty level for the puzzle
 
-def initial_grid(m):
+level = ['easy', 'medium', 'hard']
+
+def space_check(grid):
+    """
+    :return A boolean representing whether there are any spaces left on the board
+    :param grid: 4 x 4 numpy array
+    :param position: coordinate of the space
+    :return:
+    """
+    return ' ' in grid
+
+
+def possible_choice(grid):
+    """
+    :param grid: a numpy array representing the existing stage of the game
+    :return: possible moves for the existing chance : a list of tuples
+    """
+    move = np.where(grid == ' ')
+    return list(zip(*move))
+
+def initial_grid(m,level):
     """
 
     :param m: size of the grid : e.g 4 * 4
+    :param level : difficulty level of the puzzle
     :return: A Randomly generated unsolved unequal puzzle
 
     """
@@ -80,10 +102,45 @@ def initial_grid(m):
 
         grid[:, i - 1] = arr2
 
+    """ Comment the below section if you are willing to view the display board  function 
+        If that's the case then all the empty cells avaialble would be represented by 'E'
+        otherwise always use the below code : All empty spots in the numpy array are represented by 
+        ' ' and all the E's are spots which are not of any significance
+    
+    """
+    for row in range(grid.shape[0]):
+        for col in range(grid.shape[1]):
+            if row % 2 == 0 and col % 2 == 0:
+                grid[row][col] = ' '
+            else:
+                if grid[row][col] == 'E':
+                    grid[row][col] == 'X'
+
+    #  adding a random numbers to the puzzle
+
+    number = list(range(1, m + 1))  # possible numbers to fill
+
+    indices = possible_choice(grid)  # list of position of the actual baord
+
+    if 4 <= m < 6:
+        if level == 'hard':
+            pass
+        elif level == 'medium':
+            for num in range(3):
+                choice = random.choice(indices)
+                grid[choice] = str(num)
+                indices.remove(choice)
+        else:
+            for num in number:
+                choice = random.choice(indices)
+                grid[choice] = str(num)
+                indices.remove(choice)
+
+
     return grid
 
 
-board = initial_grid(6)
+board = initial_grid(4,level='easy')
 
 print(board)
 
@@ -173,7 +230,12 @@ def display_board(board, color='cyan'):
 
 display_board(board)
 
+
 # When the board is displayed inequality clues are represented and empty spaces are represented as 'E' , these
 # will be replaced by digits during the solution
 
-# To do : add one or two random number somewhere in the puzzle by replacing one of the valid spaces
+# TO DO : add one or two random number somewhere in the puzzle by replacing one of the valid spaces
+
+
+
+
