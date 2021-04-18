@@ -1,7 +1,8 @@
 # TODO : Better color combination for the UI
 
-# TODO : The draw grid function breaks for m > 4 , fix it
 
+sign1 = '\u2227'
+sign2 = '\u2228'
 
 from typing import Any, Union
 
@@ -29,14 +30,18 @@ NOTE : PYGAME COORDINATE SYSTEM IS SET UP IN A WAY LIKE FOLLOWS :
 """
 
 # COLORS FOR THE SCREEN
-
+LIGHTPURPLE= (153, 0, 153)
 Red = (255, 0, 0)
 Background = (28, 170, 156)
 Line_color = (23, 145, 135)
+SHADOW = (192, 192, 192)
+LIGHTBLUE= (0, 0, 255)
+LIGHTGREEN = (0, 255, 0 )
+YELLOW = (100,100,0)
 
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
-screen.fill(Background)
+screen.fill(YELLOW)
 
 # This is the difficulty level for the puzzle
 
@@ -82,14 +87,25 @@ def draw_grid(m):
 
     for row, num in enumerate(list(range(5, 800, int(horizontal_cell_size)))):
         for col, idx in enumerate(list(range(205, 800, int(vertical_cell_size)))):
-            pygame.draw.rect(screen, Line_color,
-                             pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
-            text = grid[col, row]
-            if text != 'E':
-                text_surface = base_font.render(text, True, (0, 0, 0))
-                screen.blit(text_surface, (num + int(horizontal_cell_size / 2), idx + int(vertical_cell_size / 2)))
-            else:
-                pygame.draw.circle(screen, Red,(num + int(horizontal_cell_size / 2), idx + int(vertical_cell_size / 2)),radius=15, width=5)
+            try:
+                pygame.draw.rect(screen, (255,255,255),
+                                 pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
+                text = grid[col, row]
+                if text == '>' or text == '<' or text == sign1 or text == sign2:
+                    pygame.draw.rect(screen, SHADOW,
+                                     pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
+
+                if text != 'E':
+                    text_surface = base_font.render(text, True, (0, 0, 0))
+                    screen.blit(text_surface, (num + int(horizontal_cell_size /3), idx + int(vertical_cell_size / 3)))
+
+
+                else:
+                    pygame.draw.rect(screen, SHADOW, pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
+
+
+            except IndexError:
+                break
 
     print(grid)
     # Working on the providing users an option to display the text in the grid , also includes connecting the
