@@ -71,7 +71,7 @@ def initial_grid(m, level):
     # '#' means that the lower digit is greater
     # 'x' in the final grid signifies that the cell is useless without clues
 
-    row_iterator = list(range(1,m,2))
+    row_iterator = list(range(1, m, 2))
 
     for i in range(1, size, 2):
 
@@ -143,12 +143,12 @@ def initial_grid(m, level):
 
     # verifying the inequalities less than greater than
 
-    for num in range(1,size,2):
-        row = grid[num,:]
+    for num in range(1, size, 2):
+        row = grid[num, :]
         for i, item in enumerate(row):
             if item == '<' or item == '>':
-                grid[num,i] = 'E'
-                grid[num-1,i] = item
+                grid[num, i] = 'E'
+                grid[num - 1, i] = item
 
     return grid
 
@@ -240,9 +240,31 @@ def display_board(board, color='cyan'):
             game_state += '\n'
 
     print(colored(game_state, color, attrs=['bold']))
+
+
 # display_board(board)
 
 # When the board is displayed inequality clues are represented and empty spaces are represented as 'E' , these
 # will be replaced by digits during the solution
 
 # TO DO : add one or two random number somewhere in the puzzle by replacing one of the valid spaces
+
+# Working on the Solver
+
+def testing_grid():
+    """
+    :return: returns a couple of testing grid from the link https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
+             along with there solutions to verify and debug how the solver is working
+        """
+
+    test_puzzle = np.array([['2', 'E', '', 'E', '', 'E', ''],
+                   [sign1, 'E', 'E', 'E', 'E', 'E', 'E'],
+                   ['', 'E', '', 'E', '', 'E', ''],
+                   ['E', 'E', 'E', 'E', sign2, 'E', sign2],
+                   ['', 'E', '', '<', '', 'E', ''],
+                   ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
+                   ['', 'E', '', 'E', '', 'E', '4']],dtype='str')  # 4 x 4
+    return test_puzzle
+
+
+test_puzzle = testing_grid()

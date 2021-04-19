@@ -52,7 +52,6 @@ level = ['easy', 'medium', 'hard']
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
 m = 4
-
 game_size = 2 * m - 1
 
 
@@ -104,7 +103,6 @@ def draw_grid(m):
                         screen.blit(text_surface,
                                     (num + int(horizontal_cell_size / 5), idx + int(vertical_cell_size / 5)))
 
-
                 else:
                     pygame.draw.rect(screen, SHADOW,
                                      pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
@@ -112,6 +110,9 @@ def draw_grid(m):
 
             except IndexError:
                 break
+        # print('-------')
+        # print(grid)
+
 
     # Working on the providing users an option to display the text in the grid , also includes connecting the
     # numpy game board with the screen
@@ -119,7 +120,7 @@ def draw_grid(m):
 
 # red circles means that these are invalid boxes and have no significance whatsoever
 
-draw_grid(m=7)
+draw_grid(m)
 
 # main loop , this is always necessary in Pygame
 
