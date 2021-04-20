@@ -110,8 +110,8 @@ def draw_grid(m):
 
             except IndexError:
                 break
-        # print('-------')
-        # print(grid)
+        print('-------')
+        print(grid)
 
 
     # Working on the providing users an option to display the text in the grid , also includes connecting the
@@ -120,7 +120,7 @@ def draw_grid(m):
 
 # red circles means that these are invalid boxes and have no significance whatsoever
 
-draw_grid(m)
+draw_grid(m=5)
 
 # main loop , this is always necessary in Pygame
 

@@ -51,7 +51,7 @@ def possible_choice(grid):
     :param grid: a numpy array representing the existing stage of the game
     :return: possible moves for the existing chance : a list of tuples
     """
-    move = np.where(grid == ' ')
+    move = np.where(grid == '')
     return list(zip(*move))
 
 
@@ -114,7 +114,7 @@ def initial_grid(m, level):
     for row in range(grid.shape[0]):
         for col in range(grid.shape[1]):
             if row % 2 == 0 and col % 2 == 0:
-                grid[row][col] = ' '
+                grid[row][col] = ''
             else:
                 if grid[row][col] == 'E':
                     grid[row][col] == 'X'
@@ -154,7 +154,7 @@ def initial_grid(m, level):
 
 
 board = initial_grid(4, level='medium')
-print(board)
+
 # Sometimes the unequalities are not set up correctly
 
 
@@ -258,13 +258,84 @@ def testing_grid():
         """
 
     test_puzzle = np.array([['2', 'E', '', 'E', '', 'E', ''],
-                   [sign1, 'E', 'E', 'E', 'E', 'E', 'E'],
-                   ['', 'E', '', 'E', '', 'E', ''],
-                   ['E', 'E', 'E', 'E', sign2, 'E', sign2],
-                   ['', 'E', '', '<', '', 'E', ''],
-                   ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
-                   ['', 'E', '', 'E', '', 'E', '4']],dtype='str')  # 4 x 4
+                            [sign1, 'E', 'E', 'E', 'E', 'E', 'E'],
+                            ['', 'E', '', 'E', '', 'E', ''],
+                            ['E', 'E', 'E', 'E', sign2, 'E', sign2],
+                            ['', 'E', '', '<', '', 'E', ''],
+                            ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
+                            ['', 'E', '', 'E', '', 'E', '4']], dtype='str')  # 4 x 4
     return test_puzzle
 
 
 test_puzzle = testing_grid()
+
+# Backtracking Algorithm : Recursion to solve
+
+# For each empty square the program would need a function to see if the choice is valid or not
+
+moves = possible_choice(test_puzzle)
+
+
+def is_valid(grid, pos, choice):
+    """
+    :param grid: the current board state
+    :param pos: position on the board which the player chooses
+    :param choice: a number between 0 and the size of grid
+    :return: A boolean
+    """
+
+    # updating the grid with the new value
+    grid[pos] = choice
+
+    # Checking whether the number is in the same row
+
+    row_check = list(grid[pos[0], :])
+
+    if choice in row_check:
+        return False
+
+    # Checking whether the number is not in the same column
+
+    col_check = list(grid[:, pos[1]])
+
+    if choice in col_check:
+        return False
+
+    # Satisfying the inequalities
+
+    for row in range(pos[0]):
+        for col in range(pos[1]):
+
+            element = grid[row][col]
+
+            # checking '<' and '>'
+
+            if element == '<':
+                if not (grid[row][col - 1] == '' or grid[row][col + 1] == ''):
+                    if int(grid[row - 1][col]) > int(grid[row + 1][col]):
+                        return False
+
+            elif element == '>':
+                if not (grid[row][col - 1] == '' or grid[row][col + 1] == ''):
+                    if int(grid[row - 1][col]) < int(grid[row + 1][col]):
+                        return False
+
+            # checking
+            # cell above is less than cell below : \u2227
+            # cell below is greater than cell above : \u2228
+
+            elif element == '\u2227':
+                if not (grid[row - 1][col] == '' or grid[row + 1][col] == ''):
+                    if int(grid[row - 1][col]) > int(grid[row + 1][col]):
+                        return False
+
+            elif element == '\u2228':
+                if not (grid[row - 1][col] == '' or grid[row + 1][col] == ''):
+                    if int(grid[row - 1][col]) < int(grid[row + 1][col]):
+                        return False
+    return True
+
+
+print(test_puzzle)
+print(moves)
+
