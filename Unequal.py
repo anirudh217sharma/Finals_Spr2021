@@ -43,7 +43,7 @@ def space_check(grid):
     :param position: coordinate of the space
     :return:
     """
-    return ' ' in grid
+    return '' in grid
 
 
 def possible_choice(grid):
@@ -336,6 +336,5 @@ def is_valid(grid, pos, choice):
     return True
 
 
-print(test_puzzle)
-print(moves)
+
 
