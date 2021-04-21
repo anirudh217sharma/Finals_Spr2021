@@ -257,14 +257,27 @@ def testing_grid():
              along with there solutions to verify and debug how the solver is working
         """
 
-    test_puzzle = np.array([['2', 'E', '', 'E', '', 'E', ''],
-                            [sign1, 'E', 'E', 'E', 'E', 'E', 'E'],
-                            ['', 'E', '', 'E', '', 'E', ''],
-                            ['E', 'E', 'E', 'E', sign2, 'E', sign2],
-                            ['', 'E', '', '<', '', 'E', ''],
-                            ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
-                            ['', 'E', '', 'E', '', 'E', '4']], dtype='str')  # 4 x 4
-    return test_puzzle
+    test_puzzle_1 = np.array([['2', 'E', '', 'E', '', 'E', ''],
+                              [sign1, 'E', 'E', 'E', 'E', 'E', 'E'],
+                              ['', 'E', '', 'E', '', 'E', ''],
+                              ['E', 'E', 'E', 'E', sign2, 'E', sign2],
+                              ['', 'E', '', '<', '', 'E', ''],
+                              ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
+                              ['', 'E', '', 'E', '', 'E', '4']], dtype='str')  # 4 x 4
+
+    test_puzzle_2 = np.array([['', 'E', '5', 'E', '', 'E', '', 'E', '', 'E', ''],
+                              [sign2, 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign2, 'E', 'E'],
+                              ['', '>', '', '>', '', 'E', '', 'E', '', 'E', ''],
+                              ['E', 'E', sign1, 'E', sign2, 'E', 'E', 'E', sign2, 'E', sign1],
+                              ['', 'E', '', 'E', '', 'E', '', '<', '', 'E', ''],
+                              ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign1, 'E', 'E'],
+                              ['', 'E', '', 'E', '', 'E', '', 'E', '', 'E', ''],
+                              ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign2],
+                              ['', 'E', '', 'E', '', '<', '', 'E', '', 'E', ''],
+                              ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign1, 'E', 'E'],
+                              ['4', 'E', '', 'E', '', 'E', '', 'E', '', 'E', '']], dtype='str')  # 6 x 6
+
+    return [test_puzzle_1, test_puzzle_2]
 
 
 # Backtracking Algorithm : Recursion to solve
@@ -315,17 +328,18 @@ def is_valid(grid, pos, choice):
             if col_check[num - 1] != '' and col_check[num + 1] != '':
                 if int(col_check[num - 1]) > int(col_check[num + 1]):
                     return False
-            elif col_check[num] == sign2:
-                if col_check[num - 1] != '' and col_check[num + 1] != '':
-                    if int(col_check[num - 1]) < int(col_check[num + 1]):
-                        return False
+
+        elif col_check[num] == sign2:
+            if col_check[num - 1] != '' and col_check[num + 1] != '':
+                if int(col_check[num - 1]) < int(col_check[num + 1]):
+                    return False
 
     return True
 
 
-test_puzzle = testing_grid()
-
-moves = possible_choice(test_puzzle)
+# test_4 = testing_grid()[0]
+#
+# moves = possible_choice(test_4)
 
 
 # Valid function : Sanity check
@@ -363,7 +377,21 @@ def solver(grid):
     return False
 
 
-print(test_puzzle)
-solver(test_puzzle)
+test_puzzles = testing_grid()
+
+# Testing 4 x 4 puzzle
+
+test_4 = test_puzzles[0]
+print(test_4)
+solver(test_4)
 print('------------')
-print(test_puzzle)
+print(test_4)
+
+# Testing 6 x 6 puzzle
+
+test_6 = test_puzzles[1]
+print(test_6)
+solver(test_6)
+print('------------')
+print(test_6)
+
