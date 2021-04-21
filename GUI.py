@@ -120,7 +120,7 @@ def draw_grid(m):
 
 # red circles means that these are invalid boxes and have no significance whatsoever
 
-draw_grid(m=5)
+draw_grid(m=4)
 
 # main loop , this is always necessary in Pygame
 

@@ -283,58 +283,57 @@ def is_valid(grid, pos, choice):
     :param choice: a number between 0 and the size of grid
     :return: A boolean
     """
-
-    # updating the grid with the new value
-    grid[pos] = choice
-
+    valid = True
     # Checking whether the number is in the same row
 
     row_check = list(grid[pos[0], :])
+    col_check = list(grid[:, pos[1]])
 
-    if choice in row_check:
-        return False
+    if str(choice) in row_check:
+        valid = False
 
     # Checking whether the number is not in the same column
 
-    col_check = list(grid[:, pos[1]])
+    if str(choice) in col_check:
+        valid = False
 
-    if choice in col_check:
-        return False
+    # updating the grid with the new value
+    grid[pos] = str(choice)
+
+    row_check = list(grid[pos[0], :])
+    col_check = list(grid[:, pos[1]])
 
     # Satisfying the inequalities
 
-    for row in range(pos[0]):
-        for col in range(pos[1]):
+    for num in range(1, len(row_check) - 1):
+        if row_check[num - 1] != '' and row_check[num + 1] == '':
+            if row_check[num] == '<':
+                if int(row_check[num - 1]) > int(row_check[num + 1]):
+                    valid = False
+            elif row_check[num] == '>':
+                if int(row_check[num - 1]) < int(row_check[num + 1]):
+                    valid = False
 
-            element = grid[row][col]
+    for num in range(1, len(col_check) - 1):
+        # print(num)
+        if col_check[num - 1] != '' and col_check[num + 1] != '':
+            if col_check[num] == sign1:
+                print(int(col_check[num - 1]), int(col_check[num + 1]))
+                if int(col_check[num - 1]) > int(col_check[num + 1]):
+                    valid = False
+            elif col_check[num] == sign2:
+                if int(col_check[num - 1]) < int(col_check[num + 1]):
+                    valid = False
 
-            # checking '<' and '>'
-
-            if element == '<':
-                if not (grid[row][col - 1] == '' or grid[row][col + 1] == ''):
-                    if int(grid[row - 1][col]) > int(grid[row + 1][col]):
-                        return False
-
-            elif element == '>':
-                if not (grid[row][col - 1] == '' or grid[row][col + 1] == ''):
-                    if int(grid[row - 1][col]) < int(grid[row + 1][col]):
-                        return False
-
-            # checking
-            # cell above is less than cell below : \u2227
-            # cell below is greater than cell above : \u2228
-
-            elif element == '\u2227':
-                if not (grid[row - 1][col] == '' or grid[row + 1][col] == ''):
-                    if int(grid[row - 1][col]) > int(grid[row + 1][col]):
-                        return False
-
-            elif element == '\u2228':
-                if not (grid[row - 1][col] == '' or grid[row + 1][col] == ''):
-                    if int(grid[row - 1][col]) < int(grid[row + 1][col]):
-                        return False
-    return True
+    return valid
 
 
+print(possible_choice(test_puzzle))
 
+# Valid function : Sanity check
 
+# print(is_valid(test_puzzle, (0, 2), 2), 'Expected Value : False') # row check
+# print(is_valid(test_puzzle, (2, 0), 2), 'Expected Value : False') # col check
+# print(is_valid(test_puzzle, (2, 0), 3), 'Expected Value : True')  # checking vertical inequalities
+# print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : True')  # checking vertical inequalities
+# print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
