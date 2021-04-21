@@ -157,7 +157,7 @@ def initial_grid(m, level):
 
 
 board = initial_grid(4, level='medium')
-print(board)
+# print(board)
 
 # Sometimes the unequalities are not set up correctly
 
@@ -332,10 +332,10 @@ def is_valid(grid, pos, choice):
             if col_check[num - 1] != '' and col_check[num + 1] != '':
                 if int(col_check[num - 1]) > int(col_check[num + 1]):
                     return False
-            elif col_check[num] == sign2:
-                if col_check[num - 1] != '' and col_check[num + 1] != '':
-                    if int(col_check[num - 1]) < int(col_check[num + 1]):
-                        return False
+        elif col_check[num] == sign2:
+            if col_check[num - 1] != '' and col_check[num + 1] != '':
+                if int(col_check[num - 1]) < int(col_check[num + 1]):
+                    return False
 
     return True
 
@@ -372,6 +372,7 @@ def solver(grid):
     for i in range(1, size + 1):
 
         if is_valid(grid=grid, pos=move, choice=i):
+
             grid[move[0]][move[1]] = i
             if solver(grid):
                 return True
@@ -383,8 +384,11 @@ def solver(grid):
 
 test_puzzles = testing_grid()
 
-# Testing 4 x 4 puzzle
+import time
 
+t1 = time.time()
+# # Testing 4 x 4 puzzle
+#
 # test_4 = test_puzzles[0]
 # print(test_4)
 # solver(test_4)
@@ -393,8 +397,10 @@ test_puzzles = testing_grid()
 
 # Testing 6 x 6 puzzle
 
-# test_6 = test_puzzles[1]
-# print(test_6)
-# solver(test_6)
-# print('------------')
-# print(test_6)
+test_6 = test_puzzles[1]
+print(test_6)
+solver(test_6)
+print('------------')
+print(test_6)
+
+print(time.time() - t1)
