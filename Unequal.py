@@ -1,10 +1,7 @@
 """
 Name : Unequal (Puzzle)
-
 Fill in the grid with numbers from 1 to the grid size, so that every number appears exactly once in each row and column, and so that all the < signs represent true inequalities (i.e. the number at the pointed end is smaller than the number at the open end).
-
 A valid puzzle must have at least a single row or column or a diagonal in numerical order. There is no constraints on the corners.
-
 As a result now there is not restriction to work on a 4 * 4 grid so the implementation would be for a general n * n grid.
 """
 
@@ -16,7 +13,6 @@ from termcolor import colored
 """
 The grid can be represented as (m + (m-1) , m + (m-1)) for the empty rows and columns having the inequalities 
 where necessary otherwise empty.
-
 """
 
 # https://www.vertex42.com/ExcelTips/unicode-symbols.html LINK TO FIND THE SYMBOLS
@@ -55,13 +51,20 @@ def possible_choice(grid):
     return list(zip(*move))[0]
 
 
+def possible_choices(grid):
+    """
+    :param grid: a numpy array representing the existing stage of the game
+    :return: possible moves for the existing chance : a list of tuples
+    """
+    move = np.where(grid == '')
+    return list(zip(*move))
+
+
 def initial_grid(m, level):
     """
-
     :param m: size of the grid : e.g 4 * 4
     :param level : difficulty level of the puzzle
     :return: A Randomly generated unsolved unequal puzzle
-
     """
     size = m + (m - 1)
     grid = np.zeros((size, size))
@@ -109,7 +112,7 @@ def initial_grid(m, level):
         If that's the case then all the empty cells avaialble would be represented by 'E'
         otherwise always use the below code : All empty spots in the numpy array are represented by 
         ' ' and all the E's are spots which are not of any significance
-    
+
     """
     for row in range(grid.shape[0]):
         for col in range(grid.shape[1]):
@@ -123,7 +126,7 @@ def initial_grid(m, level):
 
     number = list(range(1, m + 1))  # possible numbers to fill
 
-    indices = possible_choice(grid)  # list of position of the actual baord
+    indices = possible_choices(grid)  # list of position of the actual baord
 
     if level == 'hard':
         pass
@@ -154,6 +157,7 @@ def initial_grid(m, level):
 
 
 board = initial_grid(4, level='medium')
+print(board)
 
 # Sometimes the unequalities are not set up correctly
 
@@ -328,18 +332,18 @@ def is_valid(grid, pos, choice):
             if col_check[num - 1] != '' and col_check[num + 1] != '':
                 if int(col_check[num - 1]) > int(col_check[num + 1]):
                     return False
-
-        elif col_check[num] == sign2:
-            if col_check[num - 1] != '' and col_check[num + 1] != '':
-                if int(col_check[num - 1]) < int(col_check[num + 1]):
-                    return False
+            elif col_check[num] == sign2:
+                if col_check[num - 1] != '' and col_check[num + 1] != '':
+                    if int(col_check[num - 1]) < int(col_check[num + 1]):
+                        return False
 
     return True
 
 
-# test_4 = testing_grid()[0]
 #
-# moves = possible_choice(test_4)
+# test_puzzle = testing_grid()
+#
+# moves = possible_choice(test_puzzle)
 
 
 # Valid function : Sanity check
@@ -381,17 +385,16 @@ test_puzzles = testing_grid()
 
 # Testing 4 x 4 puzzle
 
-test_4 = test_puzzles[0]
-print(test_4)
-solver(test_4)
-print('------------')
-print(test_4)
+# test_4 = test_puzzles[0]
+# print(test_4)
+# solver(test_4)
+# print('------------')
+# print(test_4)
 
 # Testing 6 x 6 puzzle
 
-test_6 = test_puzzles[1]
-print(test_6)
-solver(test_6)
-print('------------')
-print(test_6)
-
+# test_6 = test_puzzles[1]
+# print(test_6)
+# solver(test_6)
+# print('------------')
+# print(test_6)
