@@ -301,7 +301,7 @@ def is_valid(grid, pos, choice):
     # Satisfying the inequalities
 
     for num in range(1, len(row_check) - 1):
-        if row_check[num - 1] != '' and row_check[num + 1] == '':
+        if row_check[num - 1] != '' and row_check[num + 1] != '':
             if row_check[num] == '<':
                 if int(row_check[num - 1]) > int(row_check[num + 1]):
                     valid = False
@@ -333,5 +333,53 @@ def is_valid(grid, pos, choice):
 
 test_puzzle = testing_grid()
 
-print(possible_choice(test_puzzle))
 moves = possible_choice(test_puzzle)
+
+
+def solver(grid):
+    """
+    :param grid: puzzle : initial state
+    :return:  a possible solution
+    """
+    size = grid.shape[0]
+    find = space_check(grid)
+    if not find:
+        return True
+    else:
+        row, col = possible_choice(grid)[0]
+
+    for i in range(1, size+1):
+
+        if is_valid(grid=grid, pos=(row, col), choice=i):
+            grid[row][col] = i
+            print('yes')
+            if solver(grid):
+                return True
+
+            grid[row][col] == ''
+
+    return False
+
+
+# def solve(bo):
+#     find = find_empty(bo)
+#     if not find:
+#         return True
+#     else:
+#         row, col = find
+#
+#     for i in range(1, 10):
+#         if valid(bo, i, (row, col)):
+#             bo[row][col] = i
+#
+#             if solve(bo):
+#                 return True
+#
+#             bo[row][col] = 0
+#
+#     return False
+
+print(test_puzzle)
+solver(test_puzzle)
+print('------------')
+print(test_puzzle)
