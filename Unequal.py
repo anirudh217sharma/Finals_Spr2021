@@ -272,7 +272,7 @@ def testing_grid():
     test_puzzle_2 = np.array([['', 'E', '5', 'E', '', 'E', '', 'E', '', 'E', ''],
                               [sign2, 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign2, 'E', 'E'],
                               ['', '>', '', '>', '', 'E', '', 'E', '', 'E', ''],
-                              ['E', 'E', sign1, 'E', sign2, 'E', 'E', 'E', sign2, 'E', sign1],
+                              ['E', 'E', sign1, 'E', sign2, 'E', 'E', 'E', 'E', 'E', sign1],
                               ['', 'E', '', 'E', '', 'E', '', '<', '', 'E', ''],
                               ['E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', sign1, 'E', 'E'],
                               ['', 'E', '', 'E', '', 'E', '', 'E', '', 'E', ''],
@@ -397,18 +397,18 @@ t1 = time.time()
 
 # Testing 6 x 6 puzzle
 
-# test_6 = test_puzzles[1]
-# print(test_6)
-# solver(test_6)
-# print('------------')
-# print(test_6)
-# #
+test_6 = test_puzzles[1]
+print(test_6)
+solver(test_6)
+print('------------')
+print(test_6)
+#
 # print(time.time() - t1)
 
 # Testing on a random 4 x 4
 
-print(board)
-solver(board)
-print('-------')
-print(board)
+# print(board)
+# solver(board)
+# print('-------')
+# print(board)
 
