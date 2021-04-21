@@ -267,14 +267,9 @@ def testing_grid():
     return test_puzzle
 
 
-test_puzzle = testing_grid()
-
 # Backtracking Algorithm : Recursion to solve
 
 # For each empty square the program would need a function to see if the choice is valid or not
-
-moves = possible_choice(test_puzzle)
-
 
 def is_valid(grid, pos, choice):
     """
@@ -328,8 +323,6 @@ def is_valid(grid, pos, choice):
     return valid
 
 
-print(possible_choice(test_puzzle))
-
 # Valid function : Sanity check
 
 # print(is_valid(test_puzzle, (0, 2), 2), 'Expected Value : False') # row check
@@ -337,3 +330,8 @@ print(possible_choice(test_puzzle))
 # print(is_valid(test_puzzle, (2, 0), 3), 'Expected Value : True')  # checking vertical inequalities
 # print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : True')  # checking vertical inequalities
 # print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
+
+test_puzzle = testing_grid()
+
+print(possible_choice(test_puzzle))
+moves = possible_choice(test_puzzle)
