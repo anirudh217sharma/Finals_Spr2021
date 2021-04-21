@@ -52,7 +52,7 @@ def possible_choice(grid):
     :return: possible moves for the existing chance : a list of tuples
     """
     move = np.where(grid == '')
-    return list(zip(*move))
+    return list(zip(*move))[0]
 
 
 def initial_grid(m, level):
@@ -278,19 +278,18 @@ def is_valid(grid, pos, choice):
     :param choice: a number between 0 and the size of grid
     :return: A boolean
     """
-    valid = True
     # Checking whether the number is in the same row
 
     row_check = list(grid[pos[0], :])
     col_check = list(grid[:, pos[1]])
 
     if str(choice) in row_check:
-        valid = False
+        return False
 
     # Checking whether the number is not in the same column
 
     if str(choice) in col_check:
-        valid = False
+        return False
 
     # updating the grid with the new value
     grid[pos] = str(choice)
@@ -301,62 +300,65 @@ def is_valid(grid, pos, choice):
     # Satisfying the inequalities
 
     for num in range(1, len(row_check) - 1):
-        if row_check[num - 1] != '' and row_check[num + 1] != '':
-            if row_check[num] == '<':
+        if row_check[num] == '<':
+            if row_check[num - 1] != '' and row_check[num + 1] != '':
                 if int(row_check[num - 1]) > int(row_check[num + 1]):
-                    valid = False
-            elif row_check[num] == '>':
+                    return False
+        elif row_check[num] == '>':
+            if row_check[num - 1] != '' and row_check[num + 1] != '':
                 if int(row_check[num - 1]) < int(row_check[num + 1]):
-                    valid = False
+                    return False
 
     for num in range(1, len(col_check) - 1):
         # print(num)
-        if col_check[num - 1] != '' and col_check[num + 1] != '':
-            if col_check[num] == sign1:
-                print(int(col_check[num - 1]), int(col_check[num + 1]))
+        if col_check[num] == sign1:
+            if col_check[num - 1] != '' and col_check[num + 1] != '':
                 if int(col_check[num - 1]) > int(col_check[num + 1]):
-                    valid = False
+                    return False
             elif col_check[num] == sign2:
-                if int(col_check[num - 1]) < int(col_check[num + 1]):
-                    valid = False
+                if col_check[num - 1] != '' and col_check[num + 1] != '':
+                    if int(col_check[num - 1]) < int(col_check[num + 1]):
+                        return False
 
-    return valid
+    return True
 
-
-# Valid function : Sanity check
-
-# print(is_valid(test_puzzle, (0, 2), 2), 'Expected Value : False') # row check
-# print(is_valid(test_puzzle, (2, 0), 2), 'Expected Value : False') # col check
-# print(is_valid(test_puzzle, (2, 0), 3), 'Expected Value : True')  # checking vertical inequalities
-# print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : True')  # checking vertical inequalities
-# print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
 
 test_puzzle = testing_grid()
 
 moves = possible_choice(test_puzzle)
 
 
+# Valid function : Sanity check
+# print(test_puzzle)
+# print(is_valid(test_puzzle, (0, 2), 2), 'Expected Value : False') # row check
+# print(is_valid(test_puzzle, (2, 0), 2), 'Expected Value : False') # col check
+# print(is_valid(test_puzzle, (2, 0), 3), 'Expected Value : True')  # checking vertical inequalities
+# print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : True')  # checking vertical inequalities
+# print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
+# print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : False')  # checking vertical inequalities
+
 def solver(grid):
     """
     :param grid: puzzle : initial state
     :return:  a possible solution
     """
-    size = grid.shape[0]
+    m = grid.shape[0]
+    size = int((m + 1) / 2)
+
     find = space_check(grid)
     if not find:
         return True
     else:
-        row, col = possible_choice(grid)[0]
+        move = possible_choice(grid)
 
-    for i in range(1, size+1):
+    for i in range(1, size + 1):
 
-        if is_valid(grid=grid, pos=(row, col), choice=i):
-            grid[row][col] = i
-            print('yes')
+        if is_valid(grid=grid, pos=move, choice=i):
+            grid[move[0]][move[1]] = i
             if solver(grid):
                 return True
 
-            grid[row][col] == ''
+            grid[move[0]][move[1]] = ''
 
     return False
 
@@ -378,6 +380,7 @@ def solver(grid):
 #             bo[row][col] = 0
 #
 #     return False
+
 
 print(test_puzzle)
 solver(test_puzzle)
