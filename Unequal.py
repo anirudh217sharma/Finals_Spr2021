@@ -403,7 +403,7 @@ solver(test_6)
 print('------------')
 print(test_6)
 #
-# print(time.time() - t1)
+print(time.time() - t1)
 
 # Testing on a random 4 x 4
 

@@ -40,6 +40,14 @@ LIGHTBLUE = (0, 0, 255)
 LIGHTGREEN = (0, 255, 0)
 YELLOW = (100, 100, 0)
 
+# Button colors
+
+red = (200, 0, 0)
+green = (0, 200, 0)
+
+bright_red = (255, 0, 0)
+bright_green = (0, 255, 0)
+
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
 screen.fill(YELLOW)
@@ -53,6 +61,7 @@ level = ['easy', 'medium', 'hard']
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
 m = 4
 game_size = 2 * m - 1
+base_font = pygame.font.Font("seguisym.ttf", 32)
 
 
 def draw_grid(m):
@@ -83,8 +92,6 @@ def draw_grid(m):
 
     # text objects
 
-    base_font = pygame.font.Font("seguisym.ttf", 32)
-
     for row, num in enumerate(list(range(5, 800, int(horizontal_cell_size)))):
         for col, idx in enumerate(list(range(205, 800, int(vertical_cell_size)))):
             try:
@@ -97,8 +104,9 @@ def draw_grid(m):
 
                 if text != 'E':
                     text_surface = base_font.render(text, True, (0, 0, 0))
-                    if m <=5:
-                        screen.blit(text_surface, (num + int(horizontal_cell_size / 3), idx + int(vertical_cell_size / 3)))
+                    if m <= 5:
+                        screen.blit(text_surface,
+                                    (num + int(horizontal_cell_size / 3), idx + int(vertical_cell_size / 3)))
                     else:
                         screen.blit(text_surface,
                                     (num + int(horizontal_cell_size / 5), idx + int(vertical_cell_size / 5)))
@@ -110,12 +118,10 @@ def draw_grid(m):
 
             except IndexError:
                 break
-        print('-------')
-        print(grid)
 
 
-    # Working on the providing users an option to display the text in the grid , also includes connecting the
-    # numpy game board with the screen
+# Working on the providing users an option to display the text in the grid , also includes connecting the
+# numpy game board with the screen
 
 
 # red circles means that these are invalid boxes and have no significance whatsoever
@@ -133,6 +139,20 @@ while True:
             mouse_X = event.pos[0]
             mouse_Y = event.pos[1]
 
+        # Adding a button to solve the game
+
+        mouse = pygame.mouse.get_pos()
+        # print(mouse)
+
+        if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
+            pygame.draw.rect(screen, (160, 160, 160), (50, 20, 200, 80))
+        else:
+            pygame.draw.rect(screen, (192, 192, 192), (50, 20, 200, 80))
+
+        button_surface = text_surface = base_font.render('Solve Game', True, (0, 0, 0))
+        screen.blit(text_surface,
+                    (70, 40))
+
     pygame.display.update()
 
-#https://www.geeksforgeeks.org/how-to-create-buttons-in-a-game-using-pygame/
+# https://www.geeksforgeeks.org/how-to-create-buttons-in-a-game-using-pygame/
