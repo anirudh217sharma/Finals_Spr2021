@@ -409,17 +409,19 @@ t1 = time.time()
 from copy import deepcopy
 # print
 game = True
-puzzle = deepcopy(board)
+
 while game:
+    board = initial_grid(m=7,level='hard')
+    puzzle = deepcopy(board)
     solver(board)
 
-    if board != puzzle:
-        print('-------')
-        print(board)
-        break
-
-    else:
+    if (board == puzzle).all():
         continue
+    else:
+        print(puzzle)
+        print('----Solution----')
+        print(board)
+        game = False
 
 
 
