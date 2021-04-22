@@ -11,7 +11,6 @@ import pygame, sys
 import time
 
 from Unequal import *
-
 # pygame initialization
 
 pygame.init()
@@ -136,6 +135,7 @@ draw_grid(m=4)
 # main loop , this is always necessary in Pygame
 
 while True:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()

@@ -397,18 +397,29 @@ t1 = time.time()
 
 # Testing 6 x 6 puzzle
 
-test_6 = test_puzzles[1]
-print(test_6)
-solver(test_6)
-print('------------')
-print(test_6)
-#
-print(time.time() - t1)
+# test_6 = test_puzzles[1]
+# print(test_6)
+# solver(test_6)
+# print('------------')
+# print(test_6)
+# #
+# print(time.time() - t1)
 
 # Testing on a random 4 x 4
+from copy import deepcopy
+# print
+game = True
+puzzle = deepcopy(board)
+while game:
+    solver(board)
 
-# print(board)
-# solver(board)
-# print('-------')
-# print(board)
+    if board != puzzle:
+        print('-------')
+        print(board)
+        break
+
+    else:
+        continue
+
+
 
