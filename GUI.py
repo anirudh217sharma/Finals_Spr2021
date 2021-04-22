@@ -63,6 +63,10 @@ m = 4
 game_size = 2 * m - 1
 base_font = pygame.font.Font("seguisym.ttf", 32)
 
+from Unequal import *
+
+grid = testing_grid()[0]
+
 
 def draw_grid(m):
     """
@@ -74,8 +78,9 @@ def draw_grid(m):
 
     game_size: Union[int, Any] = 2 * m - 1
 
-    grid = initial_grid(m, level='easy')
+    # grid = initial_grid(m, level='easy')
 
+    # Testing the button for the 4 x 4 grid
     top_left = (0, 200)
     top_right = (800, 200)
 
@@ -135,9 +140,15 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
 
+        """Button interaction - when someone clicks on the button it gives the solution
+           if they click on it again the problem is redisplayed from the start"""
+
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_X = event.pos[0]
-            mouse_Y = event.pos[1]
+            if pygame.mouse.get_pressed()[0]:
+                mouse = pygame.mouse.get_pos()
+                if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
+                    solver(grid)
+                    draw_grid(m=4)
 
         # Adding a button to solve the game
 
