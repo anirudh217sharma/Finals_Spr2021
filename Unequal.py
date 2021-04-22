@@ -434,13 +434,29 @@ def numerical(grid):
             return True
             break
 
+    # Checking whether a column is in numerical order straight or reverse
+
+    for row in grid.T:
+        for col in range(0, len(row), 2):
+            order.append(int(row[col]))
+        if order == sorted(order) or order == sorted(order)[::-1]:
+            return True
+            break
+
+    # Checking the diagonals
 
 
 
+print(test_puzzles[0])
+for row in test_puzzles[0].T:
+    print(row)
 
 
+#
 
-numerical(grid=test_puzzles[0])
+
+#
+# numerical(grid=test_puzzles[0])
 
 
 def game():
