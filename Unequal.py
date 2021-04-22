@@ -15,6 +15,11 @@ The grid can be represented as (m + (m-1) , m + (m-1)) for the empty rows and co
 where necessary otherwise empty.
 """
 
+# TODO : Add the new rule to the puzzle of either a single , row , column or diagonal to be in numerical order
+
+# TODO : Checking the total number of solutions possible , and reject multiple solution puzzles
+
+
 # https://www.vertex42.com/ExcelTips/unicode-symbols.html LINK TO FIND THE SYMBOLS
 
 sign1 = '\u2227'
