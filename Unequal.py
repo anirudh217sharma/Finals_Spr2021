@@ -412,21 +412,52 @@ t1 = time.time()
 
 # Testing on a random 4 x 4
 from copy import deepcopy
+
 # print
-game = True
 
-while game:
-    board = initial_grid(m=7,level='hard')
-    puzzle = deepcopy(board)
-    solver(board)
-
-    if (board == puzzle).all():
-        continue
-    else:
-        print(puzzle)
-        print('----Solution----')
-        print(board)
-        game = False
+"""creating a function to reject puzzles which don't have at-least one of the rows , columns or diagonals in numerical
+    order. It can be in reverse too so 4321 , 1234 are both valid cases 
+    """
 
 
+def numerical(grid):
+    """
+    :param grid: one of the possible solution
+    :return:A boolean :whether there is a single row , column or a diagonal in numerical order otherwise False
+    """
+    order = list()
+    # Checking whether a row is in numerical order straight or reverse
+    for row in grid:
+        for col in range(0, len(row), 2):
+            order.append(int(row[col]))
+        if order == sorted(order) or order == sorted(order)[::-1]:
+            return True
+            break
 
+
+
+
+
+
+
+numerical(grid=test_puzzles[0])
+
+
+def game():
+    Bool = True
+    while Bool:
+        board = initial_grid(m=4, level='hard')
+        puzzle = deepcopy(board)
+        solver(board)
+
+        if (board == puzzle).all():
+            continue
+        else:
+            print(puzzle)
+            print('----Solution----')
+            print(board)
+            Bool = False
+
+
+if __name__ == 'main':
+    game()
