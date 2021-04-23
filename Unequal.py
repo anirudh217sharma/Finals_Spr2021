@@ -444,22 +444,30 @@ def numerical(grid):
             break
 
     # Checking the diagonals
+    pass
 
 
+board = test_puzzles[0]
+solver(board)
+l = len(board[0])
+diag_1 = board.diagonal()
+diag_2 = [board[l-1-i][i] for i in range(l-1,-1,-1)]
 
-
+print(diag_1)
+print(diag_2)
+print(board)
 
 #
 
 
 #
-# numerical(grid=test_puzzles[0])
+
 
 
 def game():
     Bool = True
     while Bool:
-        board = initial_grid(m=4, level='hard')
+        board = initial_grid(m=4, level='easy')
         puzzle = deepcopy(board)
         solver(board)
 
@@ -468,8 +476,11 @@ def game():
         else:
             print(puzzle)
             print('----Solution----')
-            print(board)
+            # print(board)
             Bool = False
+    return board
 
 
-game()
+# board = game()
+# print(board)
+
