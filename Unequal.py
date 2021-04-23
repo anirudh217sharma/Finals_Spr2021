@@ -360,6 +360,8 @@ def is_valid(grid, pos, choice):
 # print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
 # print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : False')  # checking vertical inequalities
 
+SolutionList = list()
+
 def solver(grid):
     """
     :param grid: puzzle : initial state
@@ -385,6 +387,7 @@ def solver(grid):
         grid[move[0]][move[1]] = ''
 
     return False
+
 
 
 test_puzzles = testing_grid()
@@ -449,7 +452,7 @@ def numerical(grid):
     diagonal_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
 
     order = list()
-    for num in range(0,len(diagonal_1),2):
+    for num in range(0, len(diagonal_1), 2):
         order.append(int(diagonal_1[num]))
 
     if order == sorted(order) or order == sorted(order)[::-1]:
@@ -469,18 +472,12 @@ board = test_puzzles[0]
 solver(board)
 l = len(board[0])
 diag_1 = board.diagonal()
-diag_2 = [board[l-1-i][i] for i in range(l-1,-1,-1)]
+diag_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
 # https://stackoverflow.com/questions/6313308/get-all-the-diagonals-in-a-matrix-list-of-lists-in-python
 
-print(diag_1)
-print(diag_2)
-print(board)
-
-#
-
-
-#
-
+# print(diag_1)
+# print(diag_2)
+# print(board)
 
 
 def game():
@@ -494,12 +491,14 @@ def game():
             continue
         else:
             print(puzzle)
-            print('----Solution----')
-            # print(board)
+            print('-------')
+            print(board)
             Bool = False
     return board
 
 
-# board = game()
-# print(board)
 
+
+# TODO -> https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
+
+game()
