@@ -447,9 +447,6 @@ def numerical(grid):
 
 
 
-print(test_puzzles[0])
-for row in test_puzzles[0].T:
-    print(row)
 
 
 #
@@ -475,5 +472,4 @@ def game():
             Bool = False
 
 
-if __name__ == 'main':
-    game()
+game()
