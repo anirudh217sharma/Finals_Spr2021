@@ -444,7 +444,25 @@ def numerical(grid):
             break
 
     # Checking the diagonals
-    pass
+    l = len(board[0])
+    diagonal_1 = board.diagonal()
+    diagonal_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
+
+    order = list()
+    for num in range(0,len(diagonal_1),2):
+        order.append(int(diagonal_1[num]))
+
+    if order == sorted(order) or order == sorted(order)[::-1]:
+        return True
+
+    order = list()
+    for num in range(0, len(diagonal_2), 2):
+        order.append(int(diagonal_2[num]))
+
+    if order == sorted(order) or order == sorted(order)[::-1]:
+        return True
+
+    return False
 
 
 board = test_puzzles[0]
@@ -452,6 +470,7 @@ solver(board)
 l = len(board[0])
 diag_1 = board.diagonal()
 diag_2 = [board[l-1-i][i] for i in range(l-1,-1,-1)]
+# https://stackoverflow.com/questions/6313308/get-all-the-diagonals-in-a-matrix-list-of-lists-in-python
 
 print(diag_1)
 print(diag_2)
