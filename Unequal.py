@@ -362,6 +362,7 @@ def is_valid(grid, pos, choice):
 
 SolutionList = list()
 
+
 def solver(grid):
     """
     :param grid: puzzle : initial state
@@ -369,7 +370,8 @@ def solver(grid):
     """
     m = grid.shape[0]
     size = int((m + 1) / 2)
-
+    possible_num = list(range(1, size + 1))
+    random.shuffle(possible_num)
     find = space_check(grid)
     if not find:
         return True
@@ -387,6 +389,23 @@ def solver(grid):
         grid[move[0]][move[1]] = ''
 
     return False
+
+def solve(grid):
+    m = grid.shape[0]
+    size = int((m + 1) / 2)
+    for row in range(0, m,2):
+        for column in range(0, m,2):
+            if grid[row][column] == '':
+                for number in range(1, size+1):
+                    if is_valid(grid, pos = (row, column), choice=number):
+                        grid[row][column] = number
+                        solve(grid)
+                    grid[row][column] = ''
+
+                return
+    print(grid)
+    input('More possible solutions')
+# Muliple sp
 
 
 
@@ -473,6 +492,8 @@ solver(board)
 l = len(board[0])
 diag_1 = board.diagonal()
 diag_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
+
+
 # https://stackoverflow.com/questions/6313308/get-all-the-diagonals-in-a-matrix-list-of-lists-in-python
 
 # print(diag_1)
@@ -497,8 +518,12 @@ def game():
     return board
 
 
-
-
 # TODO -> https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
 
-game()
+# game()
+#
+# game()
+board = initial_grid(m=4,level='hard')
+print(board)
+print('-----')
+solve(board)
