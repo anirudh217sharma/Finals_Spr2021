@@ -363,8 +363,10 @@ def is_valid(grid, pos, choice):
 global SolutionList
 SolutionList = []
 
+
 def solver(grid):
     """
+    This function stops as soon as it finds a solution
     :param grid: puzzle : initial state
     :return:  a possible solution
     """
@@ -390,24 +392,30 @@ def solver(grid):
 
     return False
 
+
 def solve(grid):
+    """
+
+    :param grid: puzzle : initial state
+    :return: all possible solutions
+    """
     m = grid.shape[0]
     size = int((m + 1) / 2)
-    for row in range(0, m,2):
-        for column in range(0, m,2):
+    for row in range(0, m, 2):
+        for column in range(0, m, 2):
             if grid[row][column] == '':
-                for number in range(1, size+1):
-                    if is_valid(grid, pos = (row, column), choice=number):
+                for number in range(1, size + 1):
+                    if is_valid(grid, pos=(row, column), choice=number):
                         grid[row][column] = number
                         solve(grid)
                     grid[row][column] = ''
                 return
     solution = deepcopy(grid)
-    print(grid)
+    # print(grid)
     SolutionList.append(solution)
 
-# Muliple sp
 
+# Muliple sp
 
 
 test_puzzles = testing_grid()
@@ -448,52 +456,67 @@ def numerical(grid):
     :param grid: one of the possible solution
     :return:A boolean :whether there is a single row , column or a diagonal in numerical order otherwise False
     """
-    order = list()
     # Checking whether a row is in numerical order straight or reverse
-    for row in grid:
-        for col in range(0, len(row), 2):
-            order.append(int(row[col]))
-        if order == sorted(order) or order == sorted(order)[::-1]:
-            return True
-            break
-
+    for idx, row in enumerate(grid):
+        order = list()
+        if idx % 2 == 0:
+            for col in range(0, len(row), 2):
+                order.append(int(row[col]))
+            if order == sorted(order) or order == sorted(order)[::-1]:
+                return True
     # Checking whether a column is in numerical order straight or reverse
 
-    for row in grid.T:
-        for col in range(0, len(row), 2):
-            order.append(int(row[col]))
-        if order == sorted(order) or order == sorted(order)[::-1]:
-            return True
-            break
+    for idx, row in enumerate(grid.T):
+        order = list()
+        if idx % 2 == 0:
+            for col in range(0, len(row), 2):
+                order.append(int(row[col]))
+            if order == sorted(order) or order == sorted(order)[::-1]:
+                return True
 
     # Checking the diagonals
-    l = len(board[0])
-    diagonal_1 = board.diagonal()
-    diagonal_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
+    # https://stackoverflow.com/questions/6313308/get-all-the-diagonals-in-a-matrix-list-of-lists-in-python
+    l = len(grid[0])
+    diagonal_1 = grid.diagonal()
+    diagonal_2 = [grid[l - 1 - i][i] for i in range(l - 1, -1, -1)]
 
     order = list()
     for num in range(0, len(diagonal_1), 2):
         order.append(int(diagonal_1[num]))
-
-    if order == sorted(order) or order == sorted(order)[::-1]:
-        return True
+    # Compare length for unique elements
+    if len(set(order)) == len(order):
+        if order == sorted(order) or order == sorted(order)[::-1]:
+            return True
 
     order = list()
     for num in range(0, len(diagonal_2), 2):
         order.append(int(diagonal_2[num]))
 
-    if order == sorted(order) or order == sorted(order)[::-1]:
-        return True
+    if len(set(order)) == len(order):
+        if order == sorted(order) or order == sorted(order)[::-1]:
+            return True
 
     return False
 
 
-board = test_puzzles[0]
-solver(board)
-l = len(board[0])
-diag_1 = board.diagonal()
-diag_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
+"""
+X is an array which was used to check the numeric function by manually changing constraints 
+"""
 
+
+# x = np.array([['1', 'E', '1', 'E', '2', '<', '1'],
+#               ['∧', 'E', 'E', 'E', '∨', 'E', 'E'],
+#               ['3', 'E', '4', '<', '2', 'E', '3'],
+#               ['E', 'E', '∧', 'E', 'E', 'E', 'E'],
+#               ['2', 'E', '3', 'E', '3', '>', '1'],
+#               ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
+#               ['4', 'E', '4', 'E', '1', 'E', '2']])
+
+# board = test_puzzles[0]
+# solver(board)
+# l = len(board[0])
+# diag_1 = board.diagonal()
+# diag_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
 
 # https://stackoverflow.com/questions/6313308/get-all-the-diagonals-in-a-matrix-list-of-lists-in-python
 
@@ -502,30 +525,46 @@ diag_2 = [board[l - 1 - i][i] for i in range(l - 1, -1, -1)]
 # print(board)
 
 
-def game():
+def game(m, level):
+    """
+
+    :param m: size of the puzzle to be given by the user
+    :param level: difficulty level to be decided by the user
+    :return: a tuple of the puzzle and the unique solution
+    """
     Bool = True
     while Bool:
-        board = initial_grid(m=4, level='easy')
+        board = initial_grid(m=m, level=level)
         puzzle = deepcopy(board)
         solver(board)
 
         if (board == puzzle).all():
             continue
         else:
-            print(puzzle)
-            print('-------')
-            print(board)
-            Bool = False
-    return board
+            solve(board)
+            Numerical_solution = list()
+            for num in SolutionList:
+                if numerical(num):
+                    Numerical_solution.append(num)
+
+            if len(Numerical_solution) == 1:
+                bool = False
+                print(puzzle)
+                print(Numerical_solution[0])
+                return puzzle, Numerical_solution[0]
 
 
 # TODO -> https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
 
-# game()
-#
-# game()
-board = initial_grid(m=4,level='hard')
-print(board)
-print('-----')
-solve(board)
-print(SolutionList)
+# board = initial_grid(m=4,level='hard')
+# print(board)
+# print('-----')
+# solve(board)
+# print(len(SolutionList))
+# Numerical_solution = list()
+# for num in SolutionList:
+#     if numerical(num):
+#         Numerical_solution.append(num)
+# print(Numerical_solution)
+
+game(m=5, level='easy')
