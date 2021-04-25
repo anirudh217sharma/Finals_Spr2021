@@ -64,17 +64,16 @@ base_font = pygame.font.Font("seguisym.ttf", 32)
 
 from Unequal import *
 
-grid = testing_grid()[0]
 
-
-def draw_grid(m):
+def draw_grid(grid):
     """
 
-    :param m : size of the square grid
-    :return:
+    :param grid : the puzzle board
+    :return: a representation of the board on the game screen
     """
     # horizontal line
 
+    m = int((grid.shape[0] + 1) / 2)
     game_size: Union[int, Any] = 2 * m - 1
 
     # grid = initial_grid(m, level='easy')
@@ -127,15 +126,18 @@ def draw_grid(m):
 # Working on the providing users an option to display the text in the grid , also includes connecting the
 # numpy game board with the screen
 
+global SolutionList
+SolutionList = []
+
+
 
 # red circles means that these are invalid boxes and have no significance whatsoever
-
-draw_grid(m=4)
-
+puzzle, solution = game(m=5, level='easy')
+print(puzzle)
+print(solution)
 # main loop , this is always necessary in Pygame
-
+draw_grid(puzzle)
 while True:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -147,8 +149,7 @@ while True:
             if pygame.mouse.get_pressed()[0]:
                 mouse = pygame.mouse.get_pos()
                 if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
-                    solver(grid)
-                    draw_grid(m=4)
+                    draw_grid(solution)
 
         # Adding a button to solve the game
 

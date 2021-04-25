@@ -567,4 +567,7 @@ def game(m, level):
 #         Numerical_solution.append(num)
 # print(Numerical_solution)
 
-game(m=5, level='easy')
+# import time
+# t1 = time.time()
+# game(m=5, level='easy')
+# print(time.time()-t1)
