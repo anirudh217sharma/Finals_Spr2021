@@ -360,8 +360,8 @@ def is_valid(grid, pos, choice):
 # print(is_valid(test_puzzle, (4, 2), 2), 'Expected Value : False')  # checking vertical inequalities
 # print(is_valid(test_puzzle, (4, 4), 1), 'Expected Value : False')  # checking vertical inequalities
 
-SolutionList = list()
-
+global SolutionList
+SolutionList = []
 
 def solver(grid):
     """
@@ -401,10 +401,11 @@ def solve(grid):
                         grid[row][column] = number
                         solve(grid)
                     grid[row][column] = ''
-
                 return
+    solution = deepcopy(grid)
     print(grid)
-    input('More possible solutions')
+    SolutionList.append(solution)
+
 # Muliple sp
 
 
@@ -527,3 +528,4 @@ board = initial_grid(m=4,level='hard')
 print(board)
 print('-----')
 solve(board)
+print(SolutionList)
