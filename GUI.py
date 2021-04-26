@@ -67,7 +67,6 @@ from Unequal import *
 
 def draw_grid(grid):
     """
-
     :param grid : the puzzle board
     :return: a representation of the board on the game screen
     """
@@ -136,7 +135,7 @@ puzzle, solution = game(m=5, level='easy')
 print(puzzle)
 print(solution)
 # main loop , this is always necessary in Pygame
-draw_grid(puzzle)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -150,10 +149,17 @@ while True:
                 mouse = pygame.mouse.get_pos()
                 if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
                     draw_grid(solution)
+                if 500 + 200 > mouse[0] > 500 and 20 + 80 > mouse[1] > 20:
+                    draw_grid(puzzle)
 
-        # Adding a button to solve the game
 
         mouse = pygame.mouse.get_pos()
+        # Adding a button to solve and play the game
+        if 500 + 200 > mouse[0] > 500 and 20 + 80 > mouse[1] > 20:
+            pygame.draw.rect(screen, (160, 160, 160), (500, 20, 200, 80))
+        else:
+            pygame.draw.rect(screen, (192, 192, 192), (500, 20, 200, 80))
+
         # print(mouse)
 
         if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
@@ -161,9 +167,12 @@ while True:
         else:
             pygame.draw.rect(screen, (192, 192, 192), (50, 20, 200, 80))
 
-        button_surface = text_surface = base_font.render('Solve Game', True, (0, 0, 0))
-        screen.blit(text_surface,
+        solve_surface = base_font.render('Solve Game', True, (0, 0, 0))
+        screen.blit(solve_surface,
                     (70, 40))
+
+        play_surface = base_font.render('Play Game', True, (0, 0, 0))
+        screen.blit(play_surface,(520,40))
 
     pygame.display.update()
 
