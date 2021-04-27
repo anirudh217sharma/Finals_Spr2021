@@ -566,11 +566,11 @@ def game(m, level):
                     if numerical(num):
                         Numerical_solution.append(num)
 
-                if len(Numerical_solution) >= 1:
+                if len(SolutionList) >= 1:
                     bool = False
                     print(puzzle)
-                    print(Numerical_solution[0])
-                    return puzzle, Numerical_solution[0]
+                    print(SolutionList[0])
+                    return puzzle, SolutionList[0]
 
 
 
@@ -578,18 +578,7 @@ def game(m, level):
 
 # TODO ->  Unigue solution stucks in a 6 x 6 grid.
 
-board = initial_grid(m=6,level='hard')
-print(board)
-print('-----')
-solve(board)
-print(len(SolutionList))
-Numerical_solution = list()
-for num in SolutionList:
-    if numerical(num):
-        Numerical_solution.append(num)
-print(Numerical_solution)
-
 # import time
-# t1 = time.time()
-# game(m=5, level='easy')
-# print(time.time()-t1)
+t1 = time.time()
+game(m=6, level='easy')
+print(time.time()-t1)

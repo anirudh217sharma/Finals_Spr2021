@@ -131,7 +131,7 @@ SolutionList = []
 
 
 # red circles means that these are invalid boxes and have no significance whatsoever
-puzzle, solution = game(m=6, level='easy')
+puzzle, solution = game(m=5, level='easy')
 print(puzzle)
 print(solution)
 # main loop , this is always necessary in Pygame
