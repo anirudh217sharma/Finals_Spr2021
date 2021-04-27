@@ -535,37 +535,59 @@ def game(m, level):
     Bool = True
     while Bool:
         board = initial_grid(m=m, level=level)
-        puzzle = deepcopy(board)
-        solver(board)
+        if m <= 5 :
+            puzzle = deepcopy(board)
+            solver(board)
 
-        if (board == puzzle).all():
-            continue
+            if (board == puzzle).all():
+                continue
+            else:
+                solve(board)
+                Numerical_solution = list()
+                for num in SolutionList:
+                    if numerical(num):
+                        Numerical_solution.append(num)
+
+                if len(Numerical_solution) == 1:
+                    bool = False
+                    print(puzzle)
+                    print(Numerical_solution[0])
+                    return puzzle, Numerical_solution[0]
         else:
-            solve(board)
-            Numerical_solution = list()
-            for num in SolutionList:
-                if numerical(num):
-                    Numerical_solution.append(num)
+            puzzle = deepcopy(board)
+            solver(board)
 
-            if len(Numerical_solution) == 1:
-                bool = False
-                print(puzzle)
-                print(Numerical_solution[0])
-                return puzzle, Numerical_solution[0]
+            if (board == puzzle).all():
+                continue
+            else:
+                solve(board)
+                Numerical_solution = list()
+                for num in SolutionList:
+                    if numerical(num):
+                        Numerical_solution.append(num)
+
+                if len(Numerical_solution) >= 1:
+                    bool = False
+                    print(puzzle)
+                    print(Numerical_solution[0])
+                    return puzzle, Numerical_solution[0]
 
 
-# TODO -> https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
 
-# board = initial_grid(m=4,level='hard')
-# print(board)
-# print('-----')
-# solve(board)
-# print(len(SolutionList))
-# Numerical_solution = list()
-# for num in SolutionList:
-#     if numerical(num):
-#         Numerical_solution.append(num)
-# print(Numerical_solution)
+# https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
+
+# TODO ->  Unigue solution stucks in a 6 x 6 grid.
+
+board = initial_grid(m=6,level='hard')
+print(board)
+print('-----')
+solve(board)
+print(len(SolutionList))
+Numerical_solution = list()
+for num in SolutionList:
+    if numerical(num):
+        Numerical_solution.append(num)
+print(Numerical_solution)
 
 # import time
 # t1 = time.time()

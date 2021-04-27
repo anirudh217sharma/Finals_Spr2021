@@ -131,11 +131,11 @@ SolutionList = []
 
 
 # red circles means that these are invalid boxes and have no significance whatsoever
-puzzle, solution = game(m=5, level='easy')
+puzzle, solution = game(m=6, level='easy')
 print(puzzle)
 print(solution)
 # main loop , this is always necessary in Pygame
-
+grid_text = ''
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -144,13 +144,26 @@ while True:
         """Button interaction - when someone clicks on the button it gives the solution
            if they click on it again the problem is redisplayed from the start"""
 
+        if event.type == pygame.KEYDOWN:
+            grid_text += event.unicode
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
                 mouse = pygame.mouse.get_pos()
                 if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
                     draw_grid(solution)
                 if 500 + 200 > mouse[0] > 500 and 20 + 80 > mouse[1] > 20:
+                    grid_size = pygame.draw.rect(screen, YELLOW, (100, 100, 200, 20), 4)
+                    gridsurface = base_font.render(grid_text, True, (0, 0, 0))
+                    screen.blit(gridsurface, (100, 100))
                     draw_grid(puzzle)
+
+
+
+
+        if grid_text != '':
+            draw_grid(puzzle)
+
 
 
         mouse = pygame.mouse.get_pos()
@@ -173,6 +186,8 @@ while True:
 
         play_surface = base_font.render('Play Game', True, (0, 0, 0))
         screen.blit(play_surface,(520,40))
+
+
 
     pygame.display.update()
 
