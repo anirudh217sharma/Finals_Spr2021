@@ -9,7 +9,7 @@ from typing import Any, Union
 from Widget import *
 import pygame, sys
 import time
-from pygame_functions import *
+
 
 from Unequal import *
 
