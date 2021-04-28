@@ -1,5 +1,5 @@
-# TODO : Better color combination for the UI
-# TODO : GUI breaks for m > 5 fix that
+# TODO -> For 6 x 6 if the puzzle has pre filled numbers they are overlapped when showing the solution
+
 
 
 sign1 = '\u2227'
@@ -96,7 +96,7 @@ while run:
         level.main = level.options[selected_option_1]
         l = level.options[selected_option_1]
 
-    screen.fill((255, 255, 255))
+    screen.fill((178,102,255))
     level.draw(screen)
     pg.display.flip()
     if l is not None:
@@ -113,7 +113,7 @@ while run:
                 grid_size.main = grid_size.options[selected_option_1]
                 m = int(grid_size.options[selected_option_1])
 
-            screen.fill((0, 0, 0))
+            screen.fill(Line_color)
             grid_size.draw(screen)
             pg.display.flip()
 
@@ -207,7 +207,7 @@ def draw_grid(grid):
 
 # Working on the providing users an option to display the text in the grid , also includes connecting the
 # numpy game board with the screen
-
+import os
 global SolutionList
 SolutionList = []
 # red circles means that these are invalid boxes and have no significance whatsoever
