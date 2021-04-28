@@ -9,8 +9,10 @@ from typing import Any, Union
 
 import pygame, sys
 import time
+from pygame_functions import *
 
 from Unequal import *
+
 # pygame initialization
 
 pygame.init()
@@ -64,6 +66,15 @@ base_font = pygame.font.Font("seguisym.ttf", 32)
 
 from Unequal import *
 
+horizontal_length = 800
+vertical_length = 600
+
+# representing the grid in rectangles (which are squares)
+
+vertical_cell_size = vertical_length / game_size
+horizontal_cell_size = horizontal_length / game_size
+
+mapping = dict()
 
 def draw_grid(grid):
     """
@@ -100,6 +111,7 @@ def draw_grid(grid):
                 pygame.draw.rect(screen, (255, 255, 255),
                                  pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
                 text = grid[col, row]
+                mapping[row,col] = (num + int(horizontal_length) , idx + int(vertical_cell_size))
                 if text == '>' or text == '<' or text == sign1 or text == sign2:
                     pygame.draw.rect(screen, SHADOW,
                                      pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
@@ -117,7 +129,6 @@ def draw_grid(grid):
                     pygame.draw.rect(screen, SHADOW,
                                      pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
 
-
             except IndexError:
                 break
 
@@ -127,15 +138,28 @@ def draw_grid(grid):
 
 global SolutionList
 SolutionList = []
-
-
-
+m = 6
 # red circles means that these are invalid boxes and have no significance whatsoever
-puzzle, solution = game(m=5, level='easy')
-print(puzzle)
-print(solution)
+if m < 6:
+    puzzle, solution = game(m=4, level='medium')
+else:
+    flag = str(random.choice(list(range(50))))
+    os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\6x6')
+    with open('puzzle' + flag  +'.npy', 'rb') as f:
+        puzzle = np.load(f)
+    with open('solution' + flag +'.npy', 'rb') as f:
+        solution = np.load(f)
+
+os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021')
 # main loop , this is always necessary in Pygame
-grid_text = ''
+# grid_text = ''
+# GRID_SELECT = base_font.render('Please enter the size of the game :', True, (255, 255, 255))
+# screen.blit(GRID_SELECT, (100, 0))
+#
+# level_text = ''
+# Level_select = base_font.render('Please enter the level among easy,medium or hard', True, (255, 255, 255))
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -144,29 +168,16 @@ while True:
         """Button interaction - when someone clicks on the button it gives the solution
            if they click on it again the problem is redisplayed from the start"""
 
-        if event.type == pygame.KEYDOWN:
-            grid_text += event.unicode
-
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
                 mouse = pygame.mouse.get_pos()
                 if 50 + 200 > mouse[0] > 50 and 20 + 80 > mouse[1] > 20:
                     draw_grid(solution)
                 if 500 + 200 > mouse[0] > 500 and 20 + 80 > mouse[1] > 20:
-                    grid_size = pygame.draw.rect(screen, YELLOW, (100, 100, 200, 20), 4)
-                    gridsurface = base_font.render(grid_text, True, (0, 0, 0))
-                    screen.blit(gridsurface, (100, 100))
                     draw_grid(puzzle)
 
-
-
-
-        if grid_text != '':
-            draw_grid(puzzle)
-
-
-
         mouse = pygame.mouse.get_pos()
+
         # Adding a button to solve and play the game
         if 500 + 200 > mouse[0] > 500 and 20 + 80 > mouse[1] > 20:
             pygame.draw.rect(screen, (160, 160, 160), (500, 20, 200, 80))
@@ -185,9 +196,7 @@ while True:
                     (70, 40))
 
         play_surface = base_font.render('Play Game', True, (0, 0, 0))
-        screen.blit(play_surface,(520,40))
-
-
+        screen.blit(play_surface, (520, 40))
 
     pygame.display.update()
 
