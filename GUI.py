@@ -143,7 +143,7 @@ m = 6
 if m < 6:
     puzzle, solution = game(m=4, level='medium')
 else:
-    flag = str(random.choice(list(range(50))))
+    flag = str(random.choice(list(range(49))))
     os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\6x6')
     with open('puzzle' + flag  +'.npy', 'rb') as f:
         puzzle = np.load(f)
