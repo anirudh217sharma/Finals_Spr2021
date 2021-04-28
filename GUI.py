@@ -122,6 +122,7 @@ while run:
                 loop = False
                 game = True
 
+time.sleep(3)
 
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
