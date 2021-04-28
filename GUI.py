@@ -6,7 +6,7 @@ sign1 = '\u2227'
 sign2 = '\u2228'
 
 from typing import Any, Union
-
+from Widget import *
 import pygame, sys
 import time
 from pygame_functions import *
@@ -31,6 +31,8 @@ NOTE : PYGAME COORDINATE SYSTEM IS SET UP IN A WAY LIKE FOLLOWS :
      Always leave the area from (0,0) - (200,200) for interactive widgets and gameplay features 
 """
 
+
+
 # COLORS FOR THE SCREEN
 LIGHTPURPLE = (153, 0, 153)
 Red = (255, 0, 0)
@@ -49,18 +51,89 @@ green = (0, 200, 0)
 bright_red = (255, 0, 0)
 bright_green = (0, 255, 0)
 
+# screen = pygame.display.set_mode((height, width))
+pygame.display.set_caption('Unequal Puzzle')
+""""  Asking the user for the game size and the Difficulty level"""
+import pygame as pg
+
+clock = pg.time.Clock()
+screen = pg.display.set_mode((640, 480))
+pygame.display.set_caption('Unequal Puzzle')
+
+COLOR_INACTIVE = (100, 80, 255)
+COLOR_ACTIVE = (100, 200, 255)
+COLOR_LIST_INACTIVE = (255, 100, 100)
+COLOR_LIST_ACTIVE = (255, 150, 150)
+
+level = DropDown(
+    [COLOR_INACTIVE, COLOR_ACTIVE],
+    [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
+    50, 50, 200, 50,
+    pg.font.SysFont(None, 30),
+    "Select Difficulty", ["Hard", "Medium",'Easy'])
+
+grid_size = DropDown(
+    [COLOR_INACTIVE, COLOR_ACTIVE],
+    [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
+    100, 50, 200, 50,
+    pg.font.SysFont(None, 30),
+    "Select Grid size", ["4",'5','6','7'])
+
+l = None
+m = None
+run = True
+loop = True
+while run:
+    clock.tick(5)
+
+    event_list = pg.event.get()
+    for event in event_list:
+        if event.type == pg.QUIT:
+            run = False
+
+    selected_option_1 = level.update(event_list)
+    if selected_option_1 >= 0:
+        level.main = level.options[selected_option_1]
+        l = level.options[selected_option_1]
+
+    screen.fill((255, 255, 255))
+    level.draw(screen)
+    pg.display.flip()
+    if l is not None:
+        while loop:
+            clock.tick(5)
+
+            event_list = pg.event.get()
+            for event in event_list:
+                if event.type == pg.QUIT:
+                    loop = False
+
+            selected_option_1 = grid_size.update(event_list)
+            if selected_option_1 >= 0:
+                grid_size.main = grid_size.options[selected_option_1]
+                m = int(grid_size.options[selected_option_1])
+
+            screen.fill((0, 0, 0))
+            grid_size.draw(screen)
+            pg.display.flip()
+
+            if m is not None:
+                run = False
+                loop = False
+                game = True
+
+
 screen = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Unequal Puzzle')
 screen.fill(YELLOW)
 
 # This is the difficulty level for the puzzle
 
-level = ['easy', 'medium', 'hard']
+level = l.lower()
 
 # Drawing a line
 
 # pygame.draw.line(screen, Red, (10, 10), (300, 300))
-m = 4
 game_size = 2 * m - 1
 base_font = pygame.font.Font("seguisym.ttf", 32)
 
@@ -74,7 +147,6 @@ vertical_length = 600
 vertical_cell_size = vertical_length / game_size
 horizontal_cell_size = horizontal_length / game_size
 
-mapping = dict()
 
 def draw_grid(grid):
     """
@@ -111,7 +183,6 @@ def draw_grid(grid):
                 pygame.draw.rect(screen, (255, 255, 255),
                                  pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)), width=5)
                 text = grid[col, row]
-                mapping[row,col] = (num + int(horizontal_length) , idx + int(vertical_cell_size))
                 if text == '>' or text == '<' or text == sign1 or text == sign2:
                     pygame.draw.rect(screen, SHADOW,
                                      pygame.Rect(num, idx, int(horizontal_cell_size), int(vertical_cell_size)))
@@ -138,10 +209,9 @@ def draw_grid(grid):
 
 global SolutionList
 SolutionList = []
-m = 6
 # red circles means that these are invalid boxes and have no significance whatsoever
 if m < 6:
-    puzzle, solution = game(m=4, level='medium')
+    puzzle, solution = game(m=m, level=level)
 else:
     flag = str(random.choice(list(range(49))))
     os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\6x6')
