@@ -117,7 +117,6 @@ def initial_grid(m, level):
         If that's the case then all the empty cells avaialble would be represented by 'E'
         otherwise always use the below code : All empty spots in the numpy array are represented by 
         ' ' and all the E's are spots which are not of any significance
-
     """
     for row in range(grid.shape[0]):
         for col in range(grid.shape[1]):
@@ -171,7 +170,6 @@ board = initial_grid(4, level='medium')
 So suppose a grid is of size 4 * 4 it would be represented as a 7 * 7 grid with the alternative 
 rows and columns would represent the actual grid while the the intermediate rows and columns will store 
 the clues if possible or otherwise be empty 
-
 """
 
 """
@@ -395,7 +393,6 @@ def solver(grid):
 
 def solve(grid):
     """
-
     :param grid: puzzle : initial state
     :return: all possible solutions
     """
@@ -527,7 +524,6 @@ X is an array which was used to check the numeric function by manually changing 
 
 def game(m, level):
     """
-
     :param m: size of the puzzle to be given by the user
     :param level: difficulty level to be decided by the user
     :return: a tuple of the puzzle and the unique solution
@@ -589,5 +585,3 @@ def game(m, level):
 #     np.save('solution' + str(row), arr=solution)
 #     print(puzzle,solution)
 #     print(f'iteration : {row}')
-
-
