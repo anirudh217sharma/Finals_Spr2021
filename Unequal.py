@@ -575,7 +575,6 @@ def game(m, level):
 # TODO ->  Unigue solution stucks in a 6 x 6 grid.
 #
 # import time
-# t1 = time.time() + 2
 # row: int
 # import os
 # os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\7x7')

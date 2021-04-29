@@ -214,12 +214,22 @@ SolutionList = []
 if m < 6:
     puzzle, solution = game(m=m, level=level)
 else:
-    flag = str(random.choice(list(range(49))))
-    os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\6x6')
-    with open('puzzle' + flag  +'.npy', 'rb') as f:
-        puzzle = np.load(f)
-    with open('solution' + flag +'.npy', 'rb') as f:
-        solution = np.load(f)
+    if m == 6:
+        flag = str(random.choice(list(range(49))))
+        os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\6x6')
+        with open('puzzle' + flag  +'.npy', 'rb') as f:
+            puzzle = np.load(f)
+        with open('solution' + flag +'.npy', 'rb') as f:
+            solution = np.load(f)
+    else:
+        flag = str(random.choice([0,1]))
+        os.chdir(r'C:\Academia\UIUC\Fourth_sem_UIUC\IS597_Data_Structures\Final_project\7X7')
+        with open('puzzle' + flag  +'.npy', 'rb') as f:
+            puzzle = np.load(f)
+        with open('solution' + flag +'.npy', 'rb') as f:
+            solution = np.load(f)
+
+
 
 os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021')
 # main loop , this is always necessary in Pygame
