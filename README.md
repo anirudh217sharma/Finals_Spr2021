@@ -26,7 +26,7 @@ Firstly , it would ask the user to select a difficulty level:
 Secondly, it would ask you to choose a grid size :
 ![image](https://user-images.githubusercontent.com/48274485/116638195-6bab2c00-a92b-11eb-8790-d26bc053bffb.png)
 
-After this it would show a surface which has a button to play the game and another to solvet the game: 
+After this it would show a surface which has a button to play the game and another to solve the game: 
 
 ![image](https://user-images.githubusercontent.com/48274485/116638340-c775b500-a92b-11eb-89ca-15344dbfe7ae.png)
 
@@ -41,4 +41,7 @@ By clicking the Solve Game button at any point would show you the Unique solutio
 ![image](https://user-images.githubusercontent.com/48274485/116638629-571b6380-a92c-11eb-9f7d-2e87771a0b7e.png)
 
 
+Time Complexity Analysis : 
+
+TO-DO
 
