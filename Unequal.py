@@ -572,15 +572,14 @@ def game(m, level):
 
 # https://stackoverflow.com/questions/38078598/sudoku-recursive-backtracking-possible-solutions-counter : Read this to calculate the total number of solutions
 
-# TODO ->  Unigue solution stucks in a 6 x 6 grid.
-#
+# #
 # import time
 # row: int
 # import os
 # os.chdir(r'C:\Users\aniru\PycharmProjects\A2-Spr2021\Finals_Spr2021\7x7')
 # for row in range(50):
+#     print(f'iteration : {row}')
 #     puzzle , solution = game(m=7, level=random.choice(level))
 #     np.save('puzzle' + str(row), arr=puzzle)
 #     np.save('solution' + str(row), arr=solution)
 #     print(puzzle,solution)
-#     print(f'iteration : {row}')
