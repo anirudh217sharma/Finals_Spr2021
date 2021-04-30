@@ -19,17 +19,7 @@ Gameplay :
 
 Use the terminal : python GUI.py 
 
-Firstly , it would ask the user to select a difficulty level: 
-
-![image](https://user-images.githubusercontent.com/48274485/116638145-4d453080-a92b-11eb-9885-ea6856c532b2.png)
-
-Secondly, it would ask you to choose a grid size :
-![image](https://user-images.githubusercontent.com/48274485/116638195-6bab2c00-a92b-11eb-8790-d26bc053bffb.png)
-
-After this it would show a surface which has a button to play the game and another to solve the game: 
-
-![image](https://user-images.githubusercontent.com/48274485/116638340-c775b500-a92b-11eb-89ca-15344dbfe7ae.png)
-
+Firstly , it would ask the user to select a difficulty level and a grid size. 
 Clicking on the play button will generate a random puzzle of the selected grid size and difficulty as follows : 
 
 ![image](https://user-images.githubusercontent.com/48274485/116638435-f3913600-a92b-11eb-8c3e-736ced5d457b.png)
