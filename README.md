@@ -10,4 +10,8 @@ diagonals should be in numerical order.
 
 NOTE : The numerical constaint can be in reverse order as well. So 1,2,3,4 nd 4,2,3,1 are both valid combinations for satisfying this constraint. 
 
+There are two main files used here :
+
+Unequal.py -> This uses a recursive approach to randomly generate puzzles of different grid sizes and difficulty level. 
+GUI.py -> Provides an interactive display of the puzzle to the user based on the option they chose. At any point the user can ask for the solution of the puzzle. 
 
