@@ -30,8 +30,13 @@ By clicking the Solve Game button at any point would show you the Unique solutio
 
 ![image](https://user-images.githubusercontent.com/48274485/116638629-571b6380-a92c-11eb-9f7d-2e87771a0b7e.png)
 
+I have used to solve functions one is called the solver which stops when it finds a new a solution and the main one is called the Solve function which keeps solving the grid until it finds a valid solution and then carries on and adds all possible solutions to a Solution list.
 
-Time Complexity Analysis : 
+<b> Time Complexity Analysis for the main Solver function: </b> 
 
-TO-DO
+NOTE : An m x m  puzzle is represented by a (2m-1) x (2m-1) grid to take into account the inequalities. So the solver starts from the top left corner of the cell and starts filling the possible numbers. If the grid state is valid , it places that number and moves forward in the row. It carries on like this , unitl all possible solutions are found. 
+
+The time complexity for a m x m puzzle which is represented by a 2m-1 x 2m-1 grid should be O(m^3m)  which can be simplied to O(m^m) because 3 can be ignored as a constant. Because although the grid is represented by a larger number there are 3 for loops which have maximum of m iterations possible. 
+
+
 
